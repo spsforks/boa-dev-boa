@@ -19,10 +19,16 @@ mod attribute;
 mod nonmaxu32;
 
 use crate::{
+    js_str,
     js_string, object::shape::slot::SlotAttributes, string::JsStr, JsString, JsSymbol, JsValue,
 };
 use boa_gc::{Finalize, Trace};
-use std::{fmt, iter::FusedIterator};
+use std::{
+    borrow::Borrow,
+    fmt,
+    hash::{Hash, Hasher},
+    iter::FusedIterator,
+};
 
 pub use {attribute::Attribute, nonmaxu32::NonMaxU32};
 
@@ -585,8 +591,81 @@ impl From<PropertyDescriptorBuilder> for PropertyDescriptor {
     }
 }
 
-/// This abstracts away the need for `IsPropertyKey` by transforming the `PropertyKey`
-/// values into an enum with both valid types: String and Symbol
+pub(crate) trait AsPropertyKeyRef {
+    fn as_property_key_ref(&self) -> PropertyKeyRef<'_>;
+}
+
+impl PartialEq for dyn AsPropertyKeyRef + '_ {
+    fn eq(&self, other: &Self) -> bool {
+        self.as_property_key_ref() == other.as_property_key_ref()
+    }
+}
+
+impl Eq for dyn AsPropertyKeyRef + '_ {}
+
+impl Hash for dyn AsPropertyKeyRef + '_ {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.as_property_key_ref().hash(state)
+    }
+}
+
+#[derive(Copy, Clone, Eq, PartialEq, Hash, Debug)]
+pub enum PropertyKeyRef<'a> {
+    Str(JsStr<'a>),
+    Symbol(&'a JsSymbol),
+    Index(NonMaxU32),
+}
+
+impl<'a> From<JsStr<'a>> for PropertyKeyRef<'a> {
+    #[inline]
+    fn from(str: JsStr<'a>) -> Self {
+        return parse_u32_index(str.iter())
+            .map_or_else(|| Self::Str(str.into()), Self::Index);
+    }
+}
+
+impl<'a> From<&'a JsSymbol> for PropertyKeyRef<'a> {
+    fn from(value: &'a JsSymbol) -> Self {
+        Self::Symbol(value)
+    }
+}
+
+impl From<NonMaxU32> for PropertyKeyRef<'_> {
+    fn from(value: NonMaxU32) -> Self {
+        Self::Index(value)
+    }
+}
+
+impl From<u8> for PropertyKeyRef<'_> {
+    fn from(value: u8) -> Self {
+        // SAFETY: `u8` can never be `u32::MAX`.
+        unsafe { Self::Index(NonMaxU32::new_unchecked(value.into())) }
+    }
+}
+
+impl From<u16> for PropertyKeyRef<'_> {
+    fn from(value: u16) -> Self {
+        // SAFETY: `u16` can never be `u32::MAX`.
+        unsafe { Self::Index(NonMaxU32::new_unchecked(value.into())) }
+    }
+}
+
+impl From<u32> for PropertyKeyRef<'_> {
+    fn from(value: u32) -> Self {
+        NonMaxU32::new(value).map_or_else(
+            || PropertyKeyRef::Str(js_str!("4294967295")), // u32::MAX
+            PropertyKeyRef::Index,
+        )
+    }
+}
+
+impl AsPropertyKeyRef for PropertyKeyRef<'_> {
+    fn as_property_key_ref(&self) -> Self {
+        *self
+    }
+}
+
+/// A property key in the property list of a [`JsObject`][crate::JsObject].
 ///
 /// More information:
 /// - [ECMAScript reference][spec]
@@ -602,6 +681,22 @@ pub enum PropertyKey {
 
     /// A numeric property key.
     Index(NonMaxU32),
+}
+
+impl AsPropertyKeyRef for PropertyKey {
+    fn as_property_key_ref(&self) -> PropertyKeyRef<'_> {
+        match self {
+            PropertyKey::String(s) => PropertyKeyRef::Str(s.as_str()),
+            PropertyKey::Symbol(s) => PropertyKeyRef::Symbol(s),
+            PropertyKey::Index(i) => PropertyKeyRef::Index(*i),
+        }
+    }
+}
+
+impl<'a> Borrow<dyn AsPropertyKeyRef + 'a> for PropertyKey {
+    fn borrow(&self) -> &(dyn AsPropertyKeyRef + 'a) {
+        self
+    }
 }
 
 /// Utility function for parsing [`PropertyKey`].
@@ -798,6 +893,16 @@ impl From<f64> for PropertyKey {
             || Self::String(ryu_js::Buffer::new().format(value).into()),
             Self::Index,
         )
+    }
+}
+
+impl From<PropertyKeyRef<'_>> for PropertyKey {
+    fn from(value: PropertyKeyRef<'_>) -> Self {
+        match value {
+            PropertyKeyRef::Str(str) => PropertyKey::String(JsString::from(str)),
+            PropertyKeyRef::Symbol(sym) => PropertyKey::Symbol(sym.clone()),
+            PropertyKeyRef::Index(idx) => PropertyKey::Index(idx),
+        }
     }
 }
 

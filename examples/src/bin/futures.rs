@@ -164,14 +164,13 @@ fn main() {
 
     // Multiple calls to multiple async timers.
     let script = r"
-        function print(elapsed) {
-            console.log(`Finished. elapsed time: ${elapsed * 1000} ms`)
-        }
-        delay(1000).then(print);
-        delay(500).then(print);
-        delay(200).then(print);
-        delay(600).then(print);
-        delay(30).then(print);
+async function Test() {
+    console.log('2')
+}
+
+console.log('1')
+Test().then(() => console.log('4'))
+console.log('3')
     ";
 
     let now = Instant::now();
