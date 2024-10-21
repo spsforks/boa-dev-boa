@@ -573,7 +573,6 @@ impl PropertyDescriptorBuilder {
 
     /// Consumes the builder and returns the [`PropertyDescriptor`].
     #[must_use]
-    #[allow(clippy::missing_const_for_fn)]
     pub fn build(self) -> PropertyDescriptor {
         self.inner
     }

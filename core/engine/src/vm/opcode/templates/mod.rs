@@ -40,7 +40,7 @@ impl Operation for TemplateLookup {
 pub(crate) struct TemplateCreate;
 
 impl TemplateCreate {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, count: u32, site: u64) -> JsResult<CompletionType> {
         let template =
             Array::array_create(count.into(), None, context).expect("cannot fail per spec");

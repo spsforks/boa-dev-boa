@@ -89,7 +89,6 @@ impl<T> Tagged<T> {
     }
 
     /// Gets the address of the inner pointer.
-    #[allow(unused)]
     pub(crate) fn addr(self) -> usize {
         self.0.as_ptr().addr()
     }
@@ -97,7 +96,7 @@ impl<T> Tagged<T> {
     /// Returns `true` if `self ` is a tagged pointer.
     #[allow(unused)]
     pub(crate) fn is_tagged(self) -> bool {
-        self.0.as_ptr().addr() & 1 > 0
+        self.addr() & 1 > 0
     }
 }
 

@@ -81,7 +81,7 @@ pub(crate) fn string_exotic_define_own_property(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-string-exotic-objects-ownpropertykeys
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn string_exotic_own_property_keys(
     obj: &JsObject,
     _context: &mut Context,

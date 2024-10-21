@@ -563,7 +563,7 @@ pub(crate) fn typed_array_exotic_delete(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-typedarray-ownpropertykeys
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn typed_array_exotic_own_property_keys(
     obj: &JsObject,
     _context: &mut Context,

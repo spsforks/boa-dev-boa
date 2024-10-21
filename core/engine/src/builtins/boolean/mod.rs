@@ -107,7 +107,7 @@ impl Boolean {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-boolean-object
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/toString
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_string(this: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         let boolean = Self::this_boolean_value(this)?;
         Ok(JsValue::new(js_string!(boolean.to_string())))

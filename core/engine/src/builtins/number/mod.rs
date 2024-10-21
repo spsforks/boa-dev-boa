@@ -214,7 +214,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.prototype.toexponential
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toExponential
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_exponential(
         this: &JsValue,
         args: &[JsValue],
@@ -259,7 +259,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.prototype.tofixed
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_fixed(
         this: &JsValue,
         args: &[JsValue],
@@ -300,7 +300,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.prototype.tolocalestring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_locale_string(
         this: &JsValue,
         _: &[JsValue],
@@ -408,7 +408,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.prototype.toprecision
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_precision(
         this: &JsValue,
         args: &[JsValue],
@@ -533,7 +533,7 @@ impl Number {
     }
 
     // https://chromium.googlesource.com/v8/v8/+/refs/heads/master/src/numbers/conversions.cc#1230
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_js_string_radix(mut value: f64, radix: u8) -> JsString {
         assert!(radix >= 2);
         assert!(radix <= 36);
@@ -643,7 +643,6 @@ impl Number {
         ))
     }
 
-    #[allow(clippy::wrong_self_convention)]
     pub(crate) fn to_js_string(x: f64) -> JsString {
         let mut buffer = ryu_js::Buffer::new();
         js_string!(buffer.format(x).to_string())
@@ -659,7 +658,6 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString
-    #[allow(clippy::wrong_self_convention)]
     pub(crate) fn to_string(
         this: &JsValue,
         args: &[JsValue],
@@ -740,7 +738,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.isfinite
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn number_is_finite(
         _: &JsValue,
         args: &[JsValue],
@@ -766,7 +764,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-number.isinteger
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn number_is_integer(
         _: &JsValue,
         args: &[JsValue],
@@ -789,7 +787,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-isnan-number
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn number_is_nan(
         _: &JsValue,
         args: &[JsValue],
@@ -818,7 +816,7 @@ impl Number {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-isnan-number
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn is_safe_integer(
         _: &JsValue,
         args: &[JsValue],
@@ -848,7 +846,7 @@ impl Number {
     }
 
     /// Checks if the float argument is an integer.
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn is_float_integer(number: f64) -> bool {
         number.is_finite() && number.trunc() == number
     }
@@ -857,7 +855,7 @@ impl Number {
     /// x (a Number) and y (a Number). It performs the following steps when called:
     ///
     /// <https://tc39.es/ecma262/#sec-numeric-types-number-equal>
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn equal(x: f64, y: f64) -> bool {
         x == y
     }
@@ -866,7 +864,7 @@ impl Number {
     /// x (a Number) and y (a Number). It performs the following steps when called:
     ///
     /// <https://tc39.es/ecma262/#sec-numeric-types-number-sameValue>
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn same_value(a: f64, b: f64) -> bool {
         if a.is_nan() && b.is_nan() {
             return true;
@@ -878,7 +876,7 @@ impl Number {
     /// x (a Number) and y (a Number). It performs the following steps when called:
     ///
     /// <https://tc39.es/ecma262/#sec-numeric-types-number-sameValueZero>
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn same_value_zero(x: f64, y: f64) -> bool {
         if x.is_nan() && y.is_nan() {
             return true;
@@ -887,7 +885,7 @@ impl Number {
         x == y
     }
 
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn less_than(x: f64, y: f64) -> AbstractRelation {
         if x.is_nan() || y.is_nan() {
             return AbstractRelation::Undefined;

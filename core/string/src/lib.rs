@@ -263,7 +263,6 @@ const DATA_OFFSET: usize = size_of::<RawJsString>();
 ///
 /// We define some commonly used string constants in an interner. For these strings, we don't allocate
 /// memory on the heap to reduce the overhead of memory allocation and reference counting.
-#[allow(clippy::module_name_repetitions)]
 pub struct JsString {
     ptr: Tagged<RawJsString>,
 }
@@ -412,7 +411,7 @@ impl JsString {
                 // `ptr` and all `string`s should never overlap.
                 unsafe {
                     // NOTE: The aligment is checked when we allocate the array.
-                    #[allow(clippy::cast_ptr_alignment)]
+                    #[expect(clippy::cast_ptr_alignment)]
                     match (latin1_encoding, string.variant()) {
                         (true, JsStrVariant::Latin1(s)) => {
                             let count = s.len();
@@ -754,7 +753,7 @@ impl JsString {
 
         debug_assert_eq!(offset, DATA_OFFSET);
 
-        #[allow(clippy::cast_ptr_alignment)]
+        #[expect(clippy::cast_ptr_alignment)]
         // SAFETY:
         // The layout size of `RawJsString` is never zero, since it has to store
         // the length of the string and the reference count.
@@ -817,7 +816,7 @@ impl JsString {
         //   and `data` should never overlap.
         unsafe {
             // NOTE: The aligment is checked when we allocate the array.
-            #[allow(clippy::cast_ptr_alignment)]
+            #[expect(clippy::cast_ptr_alignment)]
             match string.variant() {
                 JsStrVariant::Latin1(s) => {
                     ptr::copy_nonoverlapping(s.as_ptr(), data.cast::<u8>(), count);

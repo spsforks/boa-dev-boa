@@ -117,7 +117,7 @@ impl From<bool> for AllowDefault {
 #[derive(Debug)]
 pub struct Parser<'a, R> {
     /// Path to the source being parsed.
-    #[allow(unused)] // Good to have for future improvements.
+    #[expect(unused)] // Good to have for future improvements.
     path: Option<&'a Path>,
     /// Cursor of the parser, pointing to the lexer and used to get tokens for the parser.
     cursor: Cursor<R>,

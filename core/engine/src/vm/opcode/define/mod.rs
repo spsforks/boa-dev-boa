@@ -17,7 +17,7 @@ pub(crate) use own_property::*;
 pub(crate) struct DefVar;
 
 impl DefVar {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         // TODO: spec specifies to return `empty` on empty vars, but we're trying to initialize.
         let binding_locator = context.vm.frame().code_block.bindings[index].clone();
@@ -101,7 +101,7 @@ impl Operation for DefInitVar {
 pub(crate) struct PutLexicalValue;
 
 impl PutLexicalValue {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let value = context.vm.pop();
         let binding_locator = context.vm.frame().code_block.bindings[index].clone();

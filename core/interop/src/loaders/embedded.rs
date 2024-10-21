@@ -70,7 +70,7 @@ impl EmbeddedModuleEntry {
 
 /// The resulting type of creating an embedded module loader.
 #[derive(Debug, Clone)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct EmbeddedModuleLoader {
     map: HashMap<JsString, RefCell<EmbeddedModuleEntry>>,
 }

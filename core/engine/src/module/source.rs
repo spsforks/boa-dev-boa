@@ -520,7 +520,6 @@ impl SourceTextModule {
     /// Concrete method [`ResolveExport ( exportName [ , resolveSet ] )`][spec]
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-resolveexport
-    #[allow(clippy::mutable_key_type)]
     pub(super) fn resolve_export(
         &self,
         module_self: &Module,
@@ -1309,7 +1308,6 @@ impl SourceTextModule {
     /// Abstract operation [`GatherAvailableAncestors ( module, execList )`][spec].
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-gather-available-ancestors
-    #[allow(clippy::mutable_key_type)]
     fn gather_available_ancestors(&self, exec_list: &mut FxHashSet<Module>) {
         // 1. For each Cyclic Module Record m of module.[[AsyncParentModules]], do
         for m in &*self.async_parent_modules.borrow() {
@@ -1788,7 +1786,6 @@ impl SourceTextModule {
 /// Abstract operation [`AsyncModuleExecutionFulfilled ( module )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-async-module-execution-fulfilled
-#[allow(clippy::mutable_key_type)]
 fn async_module_execution_fulfilled(module: &Module, context: &mut Context) {
     let ModuleKind::SourceText(module_src) = module.kind() else {
         unreachable!("async executed module must be a source text module");

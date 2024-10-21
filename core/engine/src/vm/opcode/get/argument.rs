@@ -11,7 +11,7 @@ use crate::{
 pub(crate) struct GetArgument;
 
 impl GetArgument {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let value = context
             .vm

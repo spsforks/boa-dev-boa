@@ -56,7 +56,7 @@ impl Profiler {
             .start_recording_interval_event(kind, id, thread_id)
     }
 
-    #[allow(clippy::significant_drop_tightening)]
+    #[expect(clippy::significant_drop_tightening)]
     fn get_or_alloc_string(&self, s: &str) -> StringId {
         {
             // Check the cache only with the read lock first.
@@ -118,7 +118,7 @@ impl Profiler {
     // Once `as_64()` is in stable we can do this:
     // https://github.com/rust-lang/rust/pull/68531/commits/ea42b1c5b85f649728e3a3b334489bac6dce890a
     // Until then our options are: use rust-nightly or use unsafe {}
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     fn thread_id_to_u32(tid: ThreadId) -> u32 {
         unsafe { std::mem::transmute::<ThreadId, u64>(tid) as u32 }
     }
@@ -130,16 +130,28 @@ impl Debug for Profiler {
     }
 }
 
+/// An empty timing guard that does nothing.
+#[cfg(not(feature = "profiler"))]
+#[expect(missing_debug_implementations)]
+#[must_use]
+pub struct TimingGuard;
+
+#[cfg(not(feature = "profiler"))]
+impl Drop for TimingGuard {
+    fn drop(&mut self) {}
+}
+
 /// An empty profiler that does nothing.
 #[cfg(not(feature = "profiler"))]
-#[derive(Copy, Clone)]
+#[expect(missing_copy_implementations)]
 pub struct Profiler;
 
 #[cfg(not(feature = "profiler"))]
 impl Profiler {
     /// Does nothing.
-    #[allow(clippy::unused_unit)]
-    pub const fn start_event(&self, _label: &str, _category: &str) -> () {}
+    pub const fn start_event(&self, _label: &str, _category: &str) -> TimingGuard {
+        TimingGuard
+    }
 
     /// Does nothing.
     pub const fn drop(&self) {}

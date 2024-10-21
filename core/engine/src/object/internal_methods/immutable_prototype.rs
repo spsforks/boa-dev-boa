@@ -17,7 +17,7 @@ pub(crate) static IMMUTABLE_PROTOTYPE_EXOTIC_INTERNAL_METHODS: InternalObjectMet
 /// [`[[SetPrototypeOf]] ( V )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-immutable-prototype-exotic-objects-setprototypeof-v
-#[allow(clippy::needless_pass_by_value)]
+#[expect(clippy::needless_pass_by_value)]
 pub(crate) fn immutable_prototype_exotic_set_prototype_of(
     obj: &JsObject,
     val: JsPrototype,

@@ -280,7 +280,6 @@ impl ListFormat {
                 }
             }
 
-            #[allow(clippy::missing_const_for_fn)]
             fn value(self) -> String {
                 match self {
                     Self::Literal(s) | Self::Element(s) => s,

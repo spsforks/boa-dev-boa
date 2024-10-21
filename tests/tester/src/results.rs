@@ -168,7 +168,7 @@ fn get_test262_commit(test262_path: &Path) -> Result<Box<str>> {
 }
 
 /// Compares the results of two test suite runs.
-#[allow(clippy::cast_possible_wrap)]
+#[expect(clippy::cast_possible_wrap)]
 pub(crate) fn compare_results(base: &Path, new: &Path, markdown: bool) -> Result<()> {
     let base_results: ResultInfo = serde_json::from_reader(BufReader::new(
         fs::File::open(base).wrap_err("could not open the base results file")?,

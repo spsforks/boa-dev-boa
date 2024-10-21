@@ -220,7 +220,7 @@ impl<'a> JsStr<'a> {
     #[inline]
     #[must_use]
     // We check the size, so this should never panic.
-    #[allow(clippy::missing_panics_doc)]
+    #[expect(clippy::missing_panics_doc)]
     pub fn starts_with(&self, needle: JsStr<'_>) -> bool {
         let n = needle.len();
         self.len() >= n && needle == self.get(..n).expect("already checked size")
@@ -229,7 +229,7 @@ impl<'a> JsStr<'a> {
     #[inline]
     #[must_use]
     // We check the size, so this should never panic.
-    #[allow(clippy::missing_panics_doc)]
+    #[expect(clippy::missing_panics_doc)]
     pub fn ends_with(&self, needle: JsStr<'_>) -> bool {
         let (m, n) = (self.len(), needle.len());
         m >= n && needle == self.get(m - n..).expect("already checked size")

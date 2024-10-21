@@ -61,7 +61,7 @@ impl Operation for SetPrivateField {
 pub(crate) struct DefinePrivateField;
 
 impl DefinePrivateField {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let value = context.vm.pop();
@@ -107,7 +107,7 @@ impl Operation for DefinePrivateField {
 pub(crate) struct SetPrivateMethod;
 
 impl SetPrivateMethod {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let value = context.vm.pop();
@@ -167,7 +167,7 @@ impl Operation for SetPrivateMethod {
 pub(crate) struct SetPrivateSetter;
 
 impl SetPrivateSetter {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let value = context.vm.pop();
@@ -218,7 +218,7 @@ impl Operation for SetPrivateSetter {
 pub(crate) struct SetPrivateGetter;
 
 impl SetPrivateGetter {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let value = context.vm.pop();

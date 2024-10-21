@@ -95,7 +95,7 @@ impl ModuleNamespace {
 /// [`[[GetPrototypeOf]] ( )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-module-namespace-exotic-objects-getprototypeof
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn module_namespace_exotic_get_prototype_of(
     _: &JsObject,
     _: &mut Context,
@@ -107,7 +107,7 @@ fn module_namespace_exotic_get_prototype_of(
 /// [`[[SetPrototypeOf]] ( V )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-module-namespace-exotic-objects-setprototypeof-v
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn module_namespace_exotic_set_prototype_of(
     obj: &JsObject,
     val: JsPrototype,
@@ -123,7 +123,7 @@ fn module_namespace_exotic_set_prototype_of(
 /// [`[[IsExtensible]] ( )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-module-namespace-exotic-objects-isextensible
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn module_namespace_exotic_is_extensible(_: &JsObject, _: &mut Context) -> JsResult<bool> {
     // 1. Return false.
     Ok(false)
@@ -132,7 +132,7 @@ fn module_namespace_exotic_is_extensible(_: &JsObject, _: &mut Context) -> JsRes
 /// [`[[PreventExtensions]] ( )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-module-namespace-exotic-objects-preventextensions
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn module_namespace_exotic_prevent_extensions(_: &JsObject, _: &mut Context) -> JsResult<bool> {
     Ok(true)
 }
@@ -414,7 +414,7 @@ fn module_namespace_exotic_get(
 /// [`[[Set]] ( P, V, Receiver )`][spec].
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-module-namespace-exotic-objects-set-p-v-receiver
-#[allow(clippy::needless_pass_by_value, clippy::unnecessary_wraps)]
+#[expect(clippy::needless_pass_by_value, clippy::unnecessary_wraps)]
 fn module_namespace_exotic_set(
     _obj: &JsObject,
     _key: PropertyKey,

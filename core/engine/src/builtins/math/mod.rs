@@ -695,7 +695,7 @@ impl Math {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-math.pow
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/pow
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn pow(_: &JsValue, args: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         // 1. Set base to ? ToNumber(base).
         let x = args.get_or_undefined(0).to_number(context)?;
@@ -737,7 +737,7 @@ impl Math {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-math.random
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn random(_: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         // NOTE: Each Math.random function created for distinct realms must produce a distinct sequence of values from successive calls.
         Ok(rand::random::<f64>().into())
@@ -751,7 +751,7 @@ impl Math {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-math.round
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub(crate) fn round(_: &JsValue, args: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         let num = args
             .get_or_undefined(0)

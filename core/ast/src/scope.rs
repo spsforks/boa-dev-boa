@@ -7,7 +7,7 @@ use rustc_hash::FxHashMap;
 use std::{cell::RefCell, fmt::Debug, rc::Rc};
 
 #[derive(Clone, Debug, PartialEq)]
-#[allow(clippy::struct_excessive_bools)]
+#[expect(clippy::struct_excessive_bools)]
 struct Binding {
     index: u32,
     mutable: bool,
@@ -126,7 +126,7 @@ impl Scope {
 
     /// Returns the number of bindings in this scope.
     #[must_use]
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     pub fn num_bindings(&self) -> u32 {
         self.inner.bindings.borrow().len() as u32
     }
@@ -196,7 +196,7 @@ impl Scope {
 
     /// Creates a mutable binding.
     #[must_use]
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     pub fn create_mutable_binding(&self, name: JsString, function_scope: bool) -> BindingLocator {
         let binding_index = self.inner.bindings.borrow().len() as u32;
         self.inner.bindings.borrow_mut().insert(
@@ -213,7 +213,7 @@ impl Scope {
     }
 
     /// Crate an immutable binding.
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     pub(crate) fn create_immutable_binding(&self, name: JsString, strict: bool) {
         let binding_index = self.inner.bindings.borrow().len() as u32;
         self.inner.bindings.borrow_mut().insert(

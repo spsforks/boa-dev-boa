@@ -3,7 +3,7 @@ use indoc::indoc;
 use crate::{run_test_actions, TestAction};
 
 #[test]
-#[allow(clippy::redundant_closure_for_method_calls)]
+#[expect(clippy::redundant_closure_for_method_calls)]
 fn issue_2658() {
     run_test_actions([
         TestAction::run(indoc! {

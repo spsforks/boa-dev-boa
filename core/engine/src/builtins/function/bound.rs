@@ -99,7 +99,7 @@ impl BoundFunction {
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-bound-function-exotic-objects-call-thisargument-argumentslist
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn bound_function_exotic_call(
     obj: &JsObject,
     argument_count: usize,
@@ -137,7 +137,7 @@ fn bound_function_exotic_call(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-bound-function-exotic-objects-construct-argumentslist-newtarget
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn bound_function_exotic_construct(
     function_object: &JsObject,
     argument_count: usize,

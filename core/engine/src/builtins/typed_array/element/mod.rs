@@ -250,8 +250,7 @@ macro_rules! element {
         to_be: $to_be:expr,
         to_le: $to_le:expr $(,)?
     ) => {
-        #[allow(clippy::redundant_closure_call)]
-        #[allow(clippy::undocumented_unsafe_blocks)] // Invariants are checked by the caller.
+        #[expect(clippy::undocumented_unsafe_blocks)] // Invariants are checked by the caller.
         impl Element for $element {
             type Atomic = $atomic;
 

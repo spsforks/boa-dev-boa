@@ -177,7 +177,7 @@ impl JsArray {
         .as_number()
         .expect("Array.prototype.indexOf should always return number");
 
-        #[allow(clippy::float_cmp)]
+        #[expect(clippy::float_cmp)]
         if index == -1.0 {
             Ok(None)
         } else {
@@ -203,7 +203,7 @@ impl JsArray {
         .as_number()
         .expect("Array.prototype.lastIndexOf should always return number");
 
-        #[allow(clippy::float_cmp)]
+        #[expect(clippy::float_cmp)]
         if index == -1.0 {
             Ok(None)
         } else {

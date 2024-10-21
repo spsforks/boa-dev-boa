@@ -181,7 +181,7 @@ impl Script {
     /// This uses an implementation defined amount of "clock cycles" that need to pass before
     /// execution is suspended. See [`Script::evaluate_async_with_budget`] if you want to also
     /// customize this parameter.
-    #[allow(clippy::future_not_send)]
+    #[expect(clippy::future_not_send)]
     pub async fn evaluate_async(&self, context: &mut Context) -> JsResult<JsValue> {
         self.evaluate_async_with_budget(context, 256).await
     }
@@ -193,7 +193,7 @@ impl Script {
     /// CPU clock cycles a VM instruction will take, but all instructions have a "cost" associated
     /// with them that depends on their individual complexity. We'd recommend benchmarking with
     /// different budget sizes in order to find the ideal yielding time for your application.
-    #[allow(clippy::future_not_send)]
+    #[expect(clippy::future_not_send)]
     pub async fn evaluate_async_with_budget(
         &self,
         context: &mut Context,

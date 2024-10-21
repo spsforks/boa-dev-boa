@@ -35,7 +35,7 @@ const IDENTIFIER_COLOR: Color = Color::TrueColor {
 
 const READLINE_COLOR: Color = Color::Cyan;
 
-#[allow(clippy::upper_case_acronyms, clippy::redundant_pub_crate)]
+#[expect(clippy::redundant_pub_crate)]
 #[derive(Completer, Helper, Hinter)]
 pub(crate) struct RLHelper {
     highlighter: LineHighlighter,
@@ -72,7 +72,7 @@ impl Highlighter for RLHelper {
     }
 
     // Must match signature of Highlighter::highlight_prompt, can't elide lifetimes.
-    #[allow(single_use_lifetimes)]
+    #[expect(single_use_lifetimes)]
     fn highlight_prompt<'b, 's: 'b, 'p: 'b>(
         &'s self,
         prompt: &'p str,
@@ -169,7 +169,7 @@ impl Highlighter for LineHighlighter {
         impl Replacer for Colorizer {
             // Changing to map_or_else moves the handling of "identifier" after all other kinds,
             // which reads worse than this version.
-            #[allow(clippy::option_if_let_else)]
+            #[expect(clippy::option_if_let_else)]
             fn replace_append(&mut self, caps: &Captures<'_>, dst: &mut String) {
                 let colored = if let Some(cap) = caps.name("identifier") {
                     let cap = cap.as_str();

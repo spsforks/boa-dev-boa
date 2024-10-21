@@ -118,7 +118,7 @@ pub(super) fn register_js262(handles: WorkerHandles, context: &mut Context) -> J
 ///
 /// Creates a new ECMAScript Realm, defines this API on the new realm's global object, and
 /// returns the `$262` property of the new realm's global object.
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn create_realm(_: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
     let context = &mut Context::default();
 
@@ -173,7 +173,7 @@ fn eval_script(_this: &JsValue, args: &[JsValue], context: &mut Context) -> JsRe
 /// Wraps the host's garbage collection invocation mechanism, if such a capability exists.
 /// Must throw an exception if no capability exists. This is necessary for testing the
 /// semantics of any feature that relies on garbage collection, e.g. the `WeakRef` API.
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 fn gc(_this: &JsValue, _: &[JsValue], _context: &mut Context) -> JsResult<JsValue> {
     boa_gc::force_collect();
     Ok(JsValue::undefined())
@@ -187,7 +187,6 @@ fn sleep(_: &JsValue, args: &[JsValue], context: &mut Context) -> JsResult<JsVal
 }
 
 /// The `$262.agent.monotonicNow()` function.
-#[allow(clippy::unnecessary_wraps)]
 fn monotonic_now(_: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
     let clock = START
         .get()

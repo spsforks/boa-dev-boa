@@ -12,7 +12,7 @@ use crate::{
 pub(crate) struct PushLiteral;
 
 impl PushLiteral {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let constant = &context.vm.frame().code_block().constants[index];
         let value: JsValue = match constant {

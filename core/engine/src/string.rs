@@ -49,7 +49,7 @@ pub use boa_string::*;
 /// assert_eq!(&msg, "Hello, human! Nice to meet you!");
 /// ```
 #[macro_export]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 macro_rules! js_string {
     () => {
         $crate::string::JsString::default()
@@ -70,7 +70,7 @@ macro_rules! js_string {
     };
 }
 
-#[allow(clippy::redundant_clone)]
+#[expect(clippy::redundant_clone)]
 #[cfg(test)]
 mod tests {
     use std::hash::{BuildHasher, BuildHasherDefault, Hash};

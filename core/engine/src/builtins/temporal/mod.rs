@@ -54,7 +54,6 @@ pub(crate) fn ns_min_instant() -> JsBigInt {
 }
 
 // An enum representing common fields across `Temporal` objects.
-#[allow(unused)]
 pub(crate) enum DateTimeValues {
     Year,
     Month,
@@ -323,7 +322,7 @@ pub(crate) fn is_partial_temporal_object<'value>(
 
 /// 13.43 `ToPositiveIntegerWithTruncation ( argument )`
 #[inline]
-#[allow(unused)]
+#[expect(unused)]
 pub(crate) fn to_positive_integer_with_trunc(
     value: &JsValue,
     context: &mut Context,

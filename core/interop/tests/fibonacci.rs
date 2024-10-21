@@ -8,7 +8,6 @@ use boa_engine::{js_error, js_str, Context, JsResult, Module, Source};
 use boa_interop::IntoJsFunctionCopied;
 use std::path::PathBuf;
 
-#[allow(clippy::needless_pass_by_value)]
 fn fibonacci(
     a: usize,
     cb_a: TypedJsFunction<(usize, JsFunction, JsFunction), usize>,

@@ -360,7 +360,6 @@ impl std::str::FromStr for Unit {
 impl ParsableOptionType for Unit {}
 
 #[derive(Debug)]
-#[allow(variant_size_differences)] // 40 bytes is not big enough to require moving `Unit` to the heap.
 pub(crate) enum UnitFormatOptions {
     Decimal,
     Percent,

@@ -37,7 +37,7 @@ const CONFIGURE_PROPERTY_TRANSITION_TYPE: u8 = 0b0000_0001;
 const PROTOTYPE_TRANSITION_TYPE: u8 = 0b0000_0010;
 
 // Reserved for future use!
-#[allow(unused)]
+#[expect(unused)]
 const RESEREVED_TRANSITION_TYPE: u8 = 0b0000_0011;
 
 bitflags! {

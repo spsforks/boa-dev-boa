@@ -168,7 +168,7 @@ pub trait ModuleLoader {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-HostLoadImportedModule
     /// [finish]: https://tc39.es/ecma262/#sec-FinishLoadingImportedModule
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     fn load_imported_module(
         &self,
         referrer: Referrer,

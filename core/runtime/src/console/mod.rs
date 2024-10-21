@@ -253,7 +253,7 @@ impl Console {
     }
 
     /// Initializes the `console` with a special logger.
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     pub fn init_with_logger<L>(context: &mut Context, logger: L) -> JsObject
     where
         L: Logger + 'static,
@@ -444,7 +444,7 @@ impl Console {
     ///
     /// [spec]: https://console.spec.whatwg.org/#clear
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/console/clear
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn clear(
         _: &JsValue,
         _: &[JsValue],
@@ -841,7 +841,7 @@ impl Console {
     ///
     /// [spec]: https://console.spec.whatwg.org/#groupend
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/console/groupEnd
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn group_end(
         _: &JsValue,
         _: &[JsValue],
@@ -864,7 +864,6 @@ impl Console {
     ///
     /// [spec]: https://console.spec.whatwg.org/#dir
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/console/dir
-    #[allow(clippy::unnecessary_wraps)]
     fn dir(
         _: &JsValue,
         args: &[JsValue],

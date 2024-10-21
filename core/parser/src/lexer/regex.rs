@@ -113,7 +113,7 @@ impl<R> Tokenizer<R> for RegexLiteral {
 
         // We convert the body to UTF-16 since it may contain code points that are not valid UTF-8.
         // We already know that the body is valid UTF-16. Casting is fine.
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         for cp in &body {
             let cp = *cp;
             if cp <= 0xFFFF {

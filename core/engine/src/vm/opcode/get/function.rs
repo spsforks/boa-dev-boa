@@ -11,7 +11,7 @@ use crate::{
 pub(crate) struct GetFunction;
 
 impl GetFunction {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let code = context.vm.frame().code_block().constant_function(index);
         let function = create_function_object_fast(code, context);

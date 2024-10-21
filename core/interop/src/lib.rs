@@ -204,7 +204,6 @@ impl<'a> TryFromJsArgument<'a> for Ignore {
 #[derive(Debug, Clone)]
 pub struct JsRest<'a>(pub &'a [JsValue]);
 
-#[allow(unused)]
 impl<'a> JsRest<'a> {
     /// Consumes the `JsRest` and returns the inner list of `JsValue`.
     #[must_use]
@@ -472,7 +471,7 @@ impl<'a, T: NativeObject + Clone> TryFromJsArgument<'a> for ContextData<T> {
 mod into_js_function_impls;
 
 #[test]
-#[allow(clippy::missing_panics_doc)]
+#[expect(clippy::missing_panics_doc)]
 pub fn into_js_module() {
     use boa_engine::{js_string, JsValue, Source};
     use boa_gc::{Gc, GcRefCell};
@@ -640,12 +639,10 @@ fn class() {
     }
 
     impl Test {
-        #[allow(clippy::needless_pass_by_value)]
         fn get_value(this: JsClass<Test>) -> i32 {
             this.borrow().value
         }
 
-        #[allow(clippy::needless_pass_by_value)]
         fn set_value(this: JsClass<Test>, new_value: i32) {
             (*this.borrow_mut()).value = new_value;
         }

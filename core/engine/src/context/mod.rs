@@ -182,7 +182,6 @@ impl Context {
     ///
     /// Note that this won't run any scheduled promise jobs; you need to call [`Context::run_jobs`]
     /// on the context or [`JobQueue::run_jobs`] on the provided queue to run them.
-    #[allow(clippy::unit_arg, dropping_copy_types)]
     pub fn eval<R: ReadChar>(&mut self, src: Source<'_, R>) -> JsResult<JsValue> {
         let main_timer = Profiler::global().start_event("Script evaluation", "Main");
 
@@ -482,7 +481,7 @@ impl Context {
     /// Concurrent job execution cannot be guaranteed by the engine, since this depends on the
     /// specific handling of each [`JobQueue`]. If you want to execute jobs concurrently, you must
     /// provide a custom implementor of `JobQueue` to the context.
-    #[allow(clippy::future_not_send)]
+    #[expect(clippy::future_not_send)]
     pub async fn run_jobs_async(&mut self) {
         self.job_queue().run_jobs_async(self).await;
         self.clear_kept_objects();
@@ -922,7 +921,6 @@ impl ContextBuilder {
     /// This is useful when you want to initialize an [`Interner`] with
     /// a collection of words before parsing.
     #[must_use]
-    #[allow(clippy::missing_const_for_fn)]
     pub fn interner(mut self, interner: Interner) -> Self {
         self.interner = Some(interner);
         self

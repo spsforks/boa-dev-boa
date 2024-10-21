@@ -183,12 +183,12 @@ macro_rules! js_class {
 
             const LENGTH: usize = $crate::__count!( $( $ctor_arg )* );
 
-            #[allow(clippy::items_after_statements)]
+            #[expect(clippy::items_after_statements)]
             fn init(class: &mut $crate::boa_engine::class::ClassBuilder<'_>) -> $crate::boa_engine::JsResult<()> {
                 // Add properties.
                 $(
                     // Declare a function so that the compiler prevents duplicated names.
-                    #[allow(dead_code)]
+                    #[expect(dead_code)]
                     fn $field_prop_name() {}
 
                     $crate::__get_set_decl!(
@@ -237,7 +237,7 @@ macro_rules! js_class {
                 Ok(())
             }
 
-            #[allow(unused_variables)]
+            #[expect(unused_variables)]
             fn data_constructor(
                 new_target: &$crate::boa_engine::JsValue,
                 args: &[$crate::boa_engine::JsValue],
@@ -390,7 +390,7 @@ macro_rules! __get_set_decl {
 // We allow too many lines. This test is straightforward but has a lot of boilerplate
 // still.
 #[test]
-#[allow(clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 fn js_class_test() {
     use crate::IntoJsFunctionCopied;
     use crate::{js_class, loaders, JsClass};

@@ -12,7 +12,7 @@ use core::num::NonZeroUsize;
     serde(transparent)
 )]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Finalize)]
 pub struct Sym {
     value: NonZeroUsize,

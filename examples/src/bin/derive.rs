@@ -5,7 +5,7 @@ use boa_engine::{value::TryFromJs, Context, JsNativeError, JsResult, JsValue, So
 /// By default, the conversion will only work if the type is directly representable by the Rust
 /// type.
 #[derive(Debug, TryFromJs)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 struct TestStruct {
     inner: bool,
     hello: String,

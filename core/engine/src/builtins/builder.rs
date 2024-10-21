@@ -17,7 +17,7 @@ use super::{function::ConstructorKind, BuiltInConstructor, IntrinsicObject};
 
 /// Marker for a constructor function.
 // TODO: Remove this marker and use `Constructor` directly.
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub(crate) struct Constructor {
     prototype: JsObject,
     inherits: JsPrototype,
@@ -26,7 +26,7 @@ pub(crate) struct Constructor {
 
 /// Marker for a constructor function without a custom prototype for its instances.
 // TODO: Remove this marker and use `ConstructorNoProto` directly.
-#[allow(dead_code)]
+#[expect(dead_code)]
 pub(crate) struct ConstructorNoProto;
 
 /// Marker for an ordinary function.
@@ -179,7 +179,7 @@ pub(crate) struct BuiltInConstructorWithPrototype<'ctx> {
     attributes: Attribute,
 }
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 impl BuiltInConstructorWithPrototype<'_> {
     /// Specify how many arguments the constructor function takes.
     ///
@@ -349,7 +349,6 @@ impl BuiltInConstructorWithPrototype<'_> {
     /// Specifies the parent prototype which objects created by this constructor inherit from.
     ///
     /// Default is `Object.prototype`.
-    #[allow(clippy::missing_const_for_fn)]
     pub(crate) fn inherits(mut self, prototype: JsPrototype) -> Self {
         self.inherits = prototype;
         self

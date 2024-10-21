@@ -19,7 +19,7 @@ use crate::{builtins::temporal::to_zero_padded_decimal_string, Context};
 ///  - [ECMAScript specififcation][spec]
 ///
 /// [spec]: https://tc39.es/proposal-temporal/#sec-defaulttimezone
-#[allow(unused)]
+#[expect(unused)]
 pub(super) fn default_time_zone(context: &mut Context) -> String {
     // The minimum implementation of DefaultTimeZone for ECMAScript implementations that do not
     // include the ECMA-402 API, supporting only the "UTC" time zone, performs the following steps

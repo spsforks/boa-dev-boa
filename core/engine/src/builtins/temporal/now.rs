@@ -62,7 +62,7 @@ impl Now {
     ///  - [ECMAScript specification][spec]
     ///
     /// [spec]: https://tc39.es/proposal-temporal/#sec-temporal.now.timezone
-    #[allow(clippy::unnecessary_wraps)]
+
     fn time_zone_id(_: &JsValue, _args: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         // 1. Return ! SystemTimeZone().
         system_time_zone(context)?
@@ -140,32 +140,32 @@ fn clamp_epoc_nanos(ns: JsBigInt) -> JsBigInt {
 }
 
 /// 2.3.2 `SystemUTCEpochMilliseconds`
-#[allow(unused)]
+#[expect(unused)]
 fn system_utc_epoch_millis() -> JsResult<f64> {
     let now = host_system_utc_epoch_nanoseconds()?;
     Ok(now.to_f64().div_euclid(1_000_000_f64).floor())
 }
 
 /// 2.3.3 `SystemUTCEpochNanoseconds`
-#[allow(unused)]
+#[expect(unused)]
 fn system_utc_epoch_nanos() -> JsResult<JsBigInt> {
     host_system_utc_epoch_nanoseconds()
 }
 
 /// `SystemInstant`
-#[allow(unused)]
+#[expect(unused)]
 fn system_instant() {
     todo!()
 }
 
 /// `SystemDateTime`
-#[allow(unused)]
+#[expect(unused)]
 fn system_date_time() {
     todo!()
 }
 
 /// `SystemZonedDateTime`
-#[allow(unused)]
+#[expect(unused)]
 fn system_zoned_date_time() {
     todo!()
 }
@@ -176,7 +176,7 @@ fn system_zoned_date_time() {
 ///  - [ECMAScript specififcation][spec]
 ///
 /// [spec]: https://tc39.es/proposal-temporal/#sec-temporal-systemtimezone
-#[allow(unused)]
+#[expect(unused)]
 fn system_time_zone(context: &mut Context) -> JsResult<TimeZone> {
     // 1. Let identifier be ! DefaultTimeZone().
     let identifier = default_time_zone(context);

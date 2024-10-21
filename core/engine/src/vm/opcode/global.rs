@@ -129,7 +129,6 @@ impl Operation for CanDeclareGlobalVar {
 pub(crate) struct CreateGlobalFunctionBinding;
 
 impl CreateGlobalFunctionBinding {
-    #[allow(clippy::unnecessary_wraps)]
     fn operation(
         context: &mut Context,
         index: usize,
@@ -182,7 +181,6 @@ impl Operation for CreateGlobalFunctionBinding {
 pub(crate) struct CreateGlobalVarBinding;
 
 impl CreateGlobalVarBinding {
-    #[allow(clippy::unnecessary_wraps)]
     fn operation(
         context: &mut Context,
         index: usize,

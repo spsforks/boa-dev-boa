@@ -322,7 +322,7 @@ impl Date {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-date.now
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub(crate) fn now(_: &JsValue, _: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         Ok(JsValue::new(context.host_hooks().utc_now()))
     }
@@ -939,7 +939,7 @@ impl Date {
     ///
     /// [local]: https://tc39.es/ecma262/#sec-date.prototype.sethours
     /// [utc]: https://tc39.es/ecma262/#sec-date.prototype.setutchours
-    #[allow(clippy::many_single_char_names)]
+    #[expect(clippy::many_single_char_names)]
     pub(crate) fn set_hours<const LOCAL: bool>(
         this: &JsValue,
         args: &[JsValue],

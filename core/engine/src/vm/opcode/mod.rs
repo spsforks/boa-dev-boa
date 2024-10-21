@@ -393,7 +393,7 @@ macro_rules! generate_opcodes {
 
         impl From<u8> for Opcode {
             #[inline]
-            #[allow(non_upper_case_globals)]
+            #[expect(non_upper_case_globals)]
             fn from(value: u8) -> Self {
                 $(
                     const $Variant: u8 = Opcode::$Variant as u8;
@@ -490,7 +490,7 @@ macro_rules! generate_opcodes {
         impl Instruction {
             /// Convert [`Instruction`] to compact bytecode.
             #[inline]
-            #[allow(dead_code)]
+            #[expect(dead_code)]
             pub(crate) fn to_bytecode(&self, bytes: &mut Vec<u8>) {
                 match self {
                     $(
@@ -2303,7 +2303,6 @@ pub(crate) struct InstructionIterator<'bytecode> {
 }
 
 // TODO: see if this can be exposed on all features.
-#[allow(unused)]
 impl<'bytecode> InstructionIterator<'bytecode> {
     /// Create a new [`InstructionIterator`] from bytecode array.
     #[inline]
@@ -2315,6 +2314,7 @@ impl<'bytecode> InstructionIterator<'bytecode> {
     /// Create a new [`InstructionIterator`] from bytecode array at pc.
     #[inline]
     #[must_use]
+    #[allow(unused)]
     pub(crate) const fn with_pc(bytes: &'bytecode [u8], pc: usize) -> Self {
         Self { bytes, pc }
     }

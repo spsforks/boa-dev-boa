@@ -39,7 +39,7 @@ impl<T> Clone for Tagged<T> {
 
 impl<T> Copy for Tagged<T> {}
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 impl<T> Tagged<T> {
     /// Creates a new, tagged `Tagged` pointer from an integer.
     ///
@@ -90,13 +90,13 @@ impl<T> Tagged<T> {
     }
 
     /// Gets the address of the inner pointer.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn addr(self) -> usize {
         self.0.as_ptr().addr()
     }
 
     /// Returns `true` if `self ` is a tagged pointer.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn is_tagged(self) -> bool {
         self.0.as_ptr().addr() & 1 > 0
     }

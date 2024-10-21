@@ -87,7 +87,7 @@ where
         Some(c) => {
             if let Some(ch) = char::from_u32(c) {
                 if ch.is_ascii() && ch.is_digit(kind.base()) {
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     buf.push(c as u8);
                 } else {
                     return Err(Error::syntax(
@@ -145,7 +145,7 @@ where
             Some(c) => {
                 if char::from_u32(c).map(|ch| ch.is_digit(kind.base())) == Some(true) {
                     prev_is_underscore = false;
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     buf.push(c as u8);
                 }
             }
@@ -281,7 +281,7 @@ impl<R> Tokenizer<R> for NumberLiteral {
                                 // Remove the initial '0' from buffer.
                                 buf.pop();
 
-                                #[allow(clippy::cast_possible_truncation)]
+                                #[expect(clippy::cast_possible_truncation)]
                                 buf.push(cursor.next_char()?.expect("'0' character vanished") as u8);
 
                                 take_integer(&mut buf, cursor, NumericKind::Integer(8), false)?;
@@ -400,14 +400,14 @@ impl<R> Tokenizer<R> for NumberLiteral {
                     )
             }
             // casting precisely to check if the float doesn't lose info on truncation
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             NumericKind::Rational /* base: 10 */ => {
                 let val: f64 = fast_float::parse(num_str).expect("Failed to parse float after checks");
                 let int_val = val as i32;
 
                 // The truncated float should be identically to the non-truncated float for the conversion to be loss-less,
                 // any other different and the number must be stored as a rational.
-                #[allow(clippy::float_cmp)]
+                #[expect(clippy::float_cmp)]
                 if f64::from(int_val) == val {
                     // For performance reasons we attempt to store values as integers if possible.
                     Numeric::Integer(int_val)

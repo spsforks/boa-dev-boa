@@ -119,12 +119,11 @@ pub(crate) mod test {
     use std::borrow::Cow;
 
     /// A test action executed in a test function.
-    #[allow(missing_debug_implementations)]
     #[derive(Clone)]
     pub(crate) struct TestAction(Inner);
 
     #[derive(Clone)]
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     enum Inner {
         RunHarness,
         Run {
@@ -184,7 +183,7 @@ pub(crate) mod test {
 
     /// Executes a list of test actions on the provided context.
     #[track_caller]
-    #[allow(clippy::too_many_lines, clippy::missing_panics_doc)]
+    #[expect(clippy::too_many_lines, clippy::missing_panics_doc)]
     pub(crate) fn run_test_actions_with(
         actions: impl IntoIterator<Item = TestAction>,
         context: &mut Context,

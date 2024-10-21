@@ -108,7 +108,7 @@ impl RegisterAllocator {
         reg
     }
 
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn dealloc(&mut self, reg: Register) {
         assert!(
             !reg.flags.is_persistent(),

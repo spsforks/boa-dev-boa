@@ -53,12 +53,12 @@ static ALLOC: dhat::Alloc = dhat::Alloc;
 /// CLI configuration for Boa.
 static CLI_HISTORY: &str = ".boa_history";
 
-// Added #[allow(clippy::option_option)] because to StructOpt an Option<Option<T>>
-// is an optional argument that optionally takes a value ([--opt=[val]]).
-// https://docs.rs/structopt/0.3.11/structopt/#type-magic
 #[derive(Debug, Parser)]
 #[command(author, version, about, name = "boa")]
-#[allow(clippy::struct_excessive_bools)] // NOTE: Allow having more than 3 bools in struct
+#[expect(
+    clippy::struct_excessive_bools,
+    reason = "Allow having more than 3 bools in struct"
+)]
 struct Opt {
     /// The JavaScript file(s) to be evaluated.
     #[arg(name = "FILE", value_hint = ValueHint::FilePath)]
@@ -77,7 +77,7 @@ struct Opt {
         value_enum,
         conflicts_with = "graph"
     )]
-    #[allow(clippy::option_option)]
+    #[expect(clippy::option_option)]
     dump_ast: Option<Option<DumpFormat>>,
 
     /// Dump the AST to stdout with the given format.
@@ -102,7 +102,7 @@ struct Opt {
         value_enum,
         group = "graph"
     )]
-    #[allow(clippy::option_option)]
+    #[expect(clippy::option_option)]
     flowgraph: Option<Option<FlowgraphFormat>>,
 
     /// Specifies the direction of the flowgraph. Default is top-top-bottom.

@@ -9,7 +9,7 @@ use crate::object::NativeObject;
 ///
 /// This allows storing types which are mapped by their [`TypeId`].
 #[derive(Default, Trace, Finalize)]
-#[allow(missing_debug_implementations)]
+#[expect(missing_debug_implementations)]
 pub struct HostDefined {
     // INVARIANT: All key-value pairs `(id, obj)` satisfy:
     //  `id == TypeId::of::<T>() && obj.is::<T>()`

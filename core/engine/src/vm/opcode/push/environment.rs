@@ -14,7 +14,7 @@ use boa_gc::Gc;
 pub(crate) struct PushScope;
 
 impl PushScope {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let scope = context.vm.frame().code_block().constant_scope(index);
         context.vm.environments.push_lexical(scope.num_bindings());

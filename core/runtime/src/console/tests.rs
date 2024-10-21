@@ -84,7 +84,7 @@ fn formatter_trailing_format_leader_renders() {
 }
 
 #[test]
-#[allow(clippy::approx_constant)]
+#[expect(clippy::approx_constant)]
 fn formatter_float_format_works() {
     run_test_actions([TestAction::inspect_context(|ctx| {
         assert_eq!(

@@ -1100,7 +1100,7 @@ impl<'ast> VisitorMut<'ast> for BindingCollectorVisitor<'_> {
 }
 
 impl BindingCollectorVisitor<'_> {
-    #[allow(clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     fn visit_function_like(
         &mut self,
         body: &mut FunctionBody,
@@ -1469,7 +1469,7 @@ fn function_declaration_instantiation(
 
     // 27. If hasParameterExpressions is false, then
     // 28. Else,
-    #[allow(unused_variables, unused_mut)]
+    #[expect(unused_mut)]
     let (mut instantiated_var_names, mut var_env) = if has_parameter_expressions {
         // a. NOTE: A separate Environment Record is needed to ensure that closures created by
         //          expressions in the formal parameter list do not have
@@ -1713,13 +1713,12 @@ pub struct EvalDeclarationBindings {
 ///
 /// * Returns a syntax error if a duplicate lexical declaration is found.
 /// * Returns a syntax error if a variable declaration in an eval function already exists as a lexical variable.
-#[allow(clippy::missing_panics_doc)]
 pub(crate) fn eval_declaration_instantiation_scope(
     body: &Script,
     strict: bool,
     var_env: &Scope,
     lex_env: &Scope,
-    #[allow(unused_variables)] annex_b_function_names: &[Identifier],
+    annex_b_function_names: &[Identifier],
     interner: &Interner,
 ) -> Result<EvalDeclarationBindings, String> {
     let mut result = EvalDeclarationBindings::default();

@@ -421,7 +421,7 @@ impl RegExp {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-get-regexp-@@species
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/@@species
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn get_species(this: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         // 1. Return the this value.
         Ok(this.clone())
@@ -1081,7 +1081,7 @@ impl RegExp {
         // 30. If R contains any GroupName, then
         // 31. Else,
         // 33. For each integer i such that 1 ≤ i ≤ n, in ascending order, do
-        #[allow(clippy::if_not_else)]
+        #[expect(clippy::if_not_else)]
         let (groups, group_names) = if !named_groups.clone().is_empty() {
             // a. Let groups be OrdinaryObjectCreate(null).
             let groups = JsObject::with_null_proto();
@@ -1297,7 +1297,6 @@ impl RegExp {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-regexp.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/toString
-    #[allow(clippy::wrong_self_convention)]
     pub(crate) fn to_string(
         this: &JsValue,
         _: &[JsValue],

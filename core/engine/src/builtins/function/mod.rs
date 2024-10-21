@@ -821,7 +821,7 @@ impl BuiltInFunctionObject {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-function.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString
-    #[allow(clippy::wrong_self_convention)]
+
     fn to_string(this: &JsValue, _: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         // 1. Let func be the this value.
         let func = this;
@@ -887,7 +887,7 @@ impl BuiltInFunctionObject {
         Ok(JsValue::ordinary_has_instance(this, args.get_or_undefined(0), context)?.into())
     }
 
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn prototype(_: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         Ok(JsValue::undefined())
     }

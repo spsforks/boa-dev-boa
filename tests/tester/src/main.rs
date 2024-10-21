@@ -403,7 +403,7 @@ fn clone_test262(commit: Option<&str>, verbose: u8) -> Result<()> {
 }
 
 /// Runs the full test suite.
-#[allow(clippy::too_many_arguments)]
+#[expect(clippy::too_many_arguments)]
 fn run_test_suite(
     config: &Config,
     verbose: u8,
@@ -777,7 +777,7 @@ struct SuiteResult {
 
 /// Outcome of a test.
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 struct TestResult {
     #[serde(rename = "n")]
     name: Box<str>,
@@ -803,7 +803,7 @@ enum TestOutcomeResult {
 
 /// Represents a test.
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 struct Test {
     name: Box<str>,
     path: Box<Path>,
@@ -1006,7 +1006,7 @@ enum Phase {
 /// Locale information structure.
 #[derive(Debug, Default, Clone, Deserialize)]
 #[serde(transparent)]
-#[allow(dead_code)]
+#[expect(dead_code)]
 struct Locale {
     locale: Box<[Box<str>]>,
 }

@@ -26,7 +26,7 @@ impl ByteCompiler<'_> {
                 // 1. Return empty.
             }
             ModuleItem::ExportDeclaration(export) => {
-                #[allow(clippy::match_same_arms)]
+                #[expect(clippy::match_same_arms)]
                 match export {
                     ExportDeclaration::ReExport { .. } | ExportDeclaration::List(_) => {
                         // ExportDeclaration :

@@ -249,7 +249,6 @@ impl SyntheticModule {
     /// Concrete method [`ResolveExport ( exportName )`][spec]
     ///
     /// [spec]: https://tc39.es/proposal-json-modules/#sec-smr-resolveexport
-    #[allow(clippy::mutable_key_type)]
     pub(super) fn resolve_export(
         &self,
         module_self: &Module,

@@ -135,7 +135,7 @@ struct Inner {
 // Safety: JsSymbol does not contain any objects which needs to be traced,
 // so this is safe.
 #[boa_gc(unsafe_empty_trace)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct JsSymbol {
     repr: Tagged<Inner>,
 }

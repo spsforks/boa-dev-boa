@@ -820,7 +820,6 @@ impl OrdinaryObject {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-object.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
-    #[allow(clippy::wrong_self_convention)]
     pub fn to_string(this: &JsValue, _: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
         // 1. If the this value is undefined, return "[object Undefined]".
         if this.is_undefined() {
@@ -888,7 +887,6 @@ impl OrdinaryObject {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-object.prototype.tolocalestring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toLocaleString
-    #[allow(clippy::wrong_self_convention)]
     pub fn to_locale_string(
         this: &JsValue,
         _: &[JsValue],

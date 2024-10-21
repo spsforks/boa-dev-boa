@@ -3,6 +3,7 @@ use crate::{
     vm::{BindingOpcode, Opcode},
     Context, JsNativeError, JsResult,
 };
+use boa_ast::operations::annex_b_function_declarations_names;
 use boa_ast::{
     declaration::Binding,
     expression::Identifier,
@@ -19,9 +20,6 @@ use boa_ast::{
 };
 use boa_interner::{JStrRef, Sym};
 
-#[cfg(feature = "annex-b")]
-use boa_ast::operations::annex_b_function_declarations_names;
-
 use super::{Operand, ToJsString};
 
 /// `GlobalDeclarationInstantiation ( script, env )`
@@ -33,34 +31,16 @@ use super::{Operand, ToJsString};
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-globaldeclarationinstantiation
-#[cfg(not(feature = "annex-b"))]
-#[allow(clippy::unnecessary_wraps)]
-#[allow(clippy::ptr_arg)]
-pub(crate) fn global_declaration_instantiation_context(
-    _annex_b_function_names: &mut Vec<Identifier>,
-    _script: &Script,
-    _env: &Scope,
-    _context: &mut Context,
-) -> JsResult<()> {
-    Ok(())
-}
-
-/// `GlobalDeclarationInstantiation ( script, env )`
-///
-/// This diverges from the specification by separating the context from the compilation process.
-/// Many steps are skipped that are done during bytecode compilation.
-///
-/// More information:
-///  - [ECMAScript reference][spec]
-///
-/// [spec]: https://tc39.es/ecma262/#sec-globaldeclarationinstantiation
-#[cfg(feature = "annex-b")]
 pub(crate) fn global_declaration_instantiation_context(
     annex_b_function_names: &mut Vec<Identifier>,
     script: &Script,
     env: &Scope,
     context: &mut Context,
 ) -> JsResult<()> {
+    if cfg!(not(feature = "annex-b")) {
+        return Ok(());
+    }
+
     // SKIP: 1. Let lexNames be the LexicallyDeclaredNames of script.
     // SKIP: 2. Let varNames be the VarDeclaredNames of script.
     // SKIP: 3. For each element name of lexNames, do
@@ -198,11 +178,11 @@ pub(crate) fn global_declaration_instantiation_context(
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-evaldeclarationinstantiation
 pub(crate) fn eval_declaration_instantiation_context(
-    #[allow(unused, clippy::ptr_arg)] annex_b_function_names: &mut Vec<Identifier>,
+    annex_b_function_names: &mut Vec<Identifier>,
     body: &Script,
-    #[allow(unused)] strict: bool,
-    #[allow(unused)] var_env: &Scope,
-    #[allow(unused)] lex_env: &Scope,
+    strict: bool,
+    var_env: &Scope,
+    lex_env: &Scope,
     context: &mut Context,
 ) -> JsResult<()> {
     // SKIP: 3. If strict is false, then
@@ -234,18 +214,19 @@ pub(crate) fn eval_declaration_instantiation_context(
             .into());
     }
 
+    if cfg!(not(feature = "annex-b")) {
+        return Ok(());
+    }
+
     // 2. Let varDeclarations be the VarScopedDeclarations of body.
-    #[cfg(feature = "annex-b")]
     let var_declarations = var_scoped_declarations(body);
 
     // SKIP: 8. Let functionsToInitialize be a new empty List.
 
     // 9. Let declaredFunctionNames be a new empty List.
-    #[cfg(feature = "annex-b")]
     let mut declared_function_names = Vec::new();
 
     // 10. For each element d of varDeclarations, in reverse List order, do
-    #[cfg(feature = "annex-b")]
     for declaration in var_declarations.iter().rev() {
         // a. If d is not either a VariableDeclaration, a ForBinding, or a BindingIdentifier, then
         // a.i. Assert: d is either a FunctionDeclaration, a GeneratorDeclaration, an AsyncFunctionDeclaration, or an AsyncGeneratorDeclaration.
@@ -272,7 +253,6 @@ pub(crate) fn eval_declaration_instantiation_context(
 
     // 11. NOTE: Annex B.3.2.3 adds additional steps at this point.
     // 11. If strict is false, then
-    #[cfg(feature = "annex-b")]
     if !strict {
         let lexically_declared_names = lexically_declared_names(body);
 
@@ -608,7 +588,7 @@ impl ByteCompiler<'_> {
     pub(crate) fn eval_declaration_instantiation(
         &mut self,
         body: &Script,
-        #[allow(unused_variables)] strict: bool,
+        strict: bool,
         var_env: &Scope,
         bindings: EvalDeclarationBindings,
     ) {
@@ -1049,8 +1029,7 @@ impl ByteCompiler<'_> {
 
         // 27. If hasParameterExpressions is false, then
         // 28. Else,
-        #[allow(unused_variables, unused_mut)]
-        let (mut instantiated_var_names, mut variable_scope) =
+        let (instantiated_var_names, variable_scope) =
             if let Some(scope) = scopes.parameters_scope() {
                 // a. NOTE: A separate Environment Record is needed to ensure that closures created by
                 //          expressions in the formal parameter list do not have
@@ -1060,7 +1039,7 @@ impl ByteCompiler<'_> {
                 let scope_index = self.push_scope(scope);
                 self.emit_with_varying_operand(Opcode::PushScope, scope_index);
 
-                let mut variable_scope = self.lexical_scope.clone();
+                let variable_scope = self.lexical_scope.clone();
 
                 // d. Let instantiatedVarNames be a new empty List.
                 let mut instantiated_var_names = Vec::new();
@@ -1136,6 +1115,7 @@ impl ByteCompiler<'_> {
         // 29. If strict is false, then
         #[cfg(feature = "annex-b")]
         if !strict {
+            let mut instantiated_var_names = instantiated_var_names;
             // a. For each FunctionDeclaration f that is directly contained in the StatementList
             //    of a Block, CaseClause, or DefaultClause, do
             for f in annex_b_function_declarations_names(body) {

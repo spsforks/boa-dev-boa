@@ -362,7 +362,7 @@ where
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-decode
-#[allow(clippy::many_single_char_names)]
+#[expect(clippy::many_single_char_names)]
 fn decode<F>(string: &JsString, reserved_set: F) -> JsResult<JsString>
 where
     F: Fn(u16) -> bool,
@@ -387,7 +387,7 @@ where
         let c = string.get_expect(k);
 
         // c. If C is not the code unit 0x0025 (PERCENT SIGN), then
-        #[allow(clippy::if_not_else)]
+        #[expect(clippy::if_not_else)]
         let s = if c != 0x0025_u16 {
             // i. Let S be the String value containing only the code unit C.
             Vec::from([c])

@@ -281,7 +281,7 @@ impl Module {
     /// that will resolve when the loading process either completes or fails.
     ///
     /// [spec]: https://tc39.es/ecma262/#table-abstract-methods-of-module-records
-    #[allow(clippy::missing_panics_doc)]
+    #[expect(clippy::missing_panics_doc)]
     #[inline]
     pub fn load(&self, context: &mut Context) -> JsPromise {
         match self.kind() {
@@ -393,7 +393,6 @@ impl Module {
     /// This must only be called if the [`JsPromise`] returned by [`Module::load`] has fulfilled.
     ///
     /// [spec]: https://tc39.es/ecma262/#table-abstract-methods-of-module-records
-    #[allow(clippy::mutable_key_type)]
     pub(crate) fn resolve_export(
         &self,
         export_name: JsString,
@@ -418,7 +417,6 @@ impl Module {
     /// This must only be called if the [`JsPromise`] returned by [`Module::load`] has fulfilled.
     ///
     /// [spec]: https://tc39.es/ecma262/#table-abstract-methods-of-module-records
-    #[allow(clippy::missing_panics_doc)]
     #[inline]
     pub fn link(&self, context: &mut Context) -> JsResult<()> {
         match self.kind() {
@@ -531,7 +529,6 @@ impl Module {
     ///     PromiseState::Fulfilled(JsValue::undefined())
     /// );
     /// ```
-    #[allow(dropping_copy_types)]
     #[inline]
     pub fn load_link_evaluate(&self, context: &mut Context) -> JsPromise {
         let main_timer = Profiler::global().start_event("Module evaluation", "Main");

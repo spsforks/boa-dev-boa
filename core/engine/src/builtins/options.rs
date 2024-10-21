@@ -200,7 +200,7 @@ pub(crate) enum UnsignedRoundingMode {
 impl RoundingMode {
     // TODO: remove once confirmed.
     #[cfg(feature = "temporal")]
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     pub(crate) const fn negate(self) -> Self {
         use RoundingMode::{
             Ceil, Expand, Floor, HalfCeil, HalfEven, HalfExpand, HalfFloor, HalfTrunc, Trunc,
@@ -221,7 +221,7 @@ impl RoundingMode {
 
     // TODO: remove once confirmed.
     #[cfg(feature = "temporal")]
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     pub(crate) const fn get_unsigned_round_mode(self, is_negative: bool) -> UnsignedRoundingMode {
         use RoundingMode::{
             Ceil, Expand, Floor, HalfCeil, HalfEven, HalfExpand, HalfFloor, HalfTrunc, Trunc,

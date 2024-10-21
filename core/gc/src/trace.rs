@@ -18,7 +18,7 @@ use crate::GcErasedPointer;
 
 /// A queue used to trace [`crate::Gc<T>`] non-recursively.
 #[doc(hidden)]
-#[allow(missing_debug_implementations)]
+#[expect(missing_debug_implementations)]
 pub struct Tracer {
     queue: VecDeque<GcErasedPointer>,
 }
@@ -442,7 +442,7 @@ impl<T: Eq + Hash + Trace> Finalize for LinkedList<T> {}
 // SAFETY: All the elements of the `LinkedList` are correctly marked.
 unsafe impl<T: Eq + Hash + Trace> Trace for LinkedList<T> {
     custom_trace!(this, mark, {
-        #[allow(clippy::explicit_iter_loop)]
+        #[expect(clippy::explicit_iter_loop)]
         for v in this.iter() {
             mark(v);
         }

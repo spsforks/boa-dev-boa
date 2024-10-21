@@ -63,7 +63,6 @@ impl<T: NativeObject + ?Sized> Clone for JsObject<T> {
 // We have to skip implementing `Debug` for this because not using the
 // implementation of `Debug` for `JsObject` could easily cause stack overflows,
 // so we have to force our users to debug the `JsObject` instead.
-#[allow(missing_debug_implementations)]
 #[derive(Trace, Finalize)]
 pub(crate) struct VTableObject<T: NativeObject + ?Sized> {
     #[unsafe_ignore_trace]
@@ -527,7 +526,7 @@ Cannot both specify accessors and a value or writable attribute",
     }
 
     // Allow lint, false positive.
-    #[allow(clippy::assigning_clones)]
+    #[expect(clippy::assigning_clones)]
     pub(crate) fn get_property(&self, key: &PropertyKey) -> Option<PropertyDescriptor> {
         let mut obj = Some(self.clone());
 
@@ -714,7 +713,7 @@ impl<T: NativeObject + ?Sized> JsObject<T> {
     /// Panics if the object is currently mutably borrowed
     #[inline]
     #[track_caller]
-    #[allow(clippy::must_use_candidate)]
+    #[expect(clippy::must_use_candidate)]
     pub fn set_prototype(&self, prototype: JsPrototype) -> bool {
         self.borrow_mut().set_prototype(prototype)
     }

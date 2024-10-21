@@ -290,7 +290,7 @@ impl JsValue {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-isintegralnumber
     #[must_use]
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub fn is_integral_number(&self) -> bool {
         // If it can fit in a i32 and the truncated version is
         // equal to the original then it is an integer.
@@ -307,7 +307,6 @@ impl JsValue {
     ///
     /// Similar to [`JsValue::is_integral_number()`] except that it returns `false` for `-0`.
     #[must_use]
-    #[allow(clippy::float_cmp)]
     pub fn is_integer(&self) -> bool {
         // If it can fit in a i32 and the truncated version is
         // equal to the original then it is an integer.

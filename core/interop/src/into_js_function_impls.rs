@@ -48,7 +48,7 @@ macro_rules! impl_into_js_function {
             R: TryIntoJsResult,
             T: FnMut($($t,)*) -> R + 'static,
         {
-            #[allow(unused_variables)]
+            #[expect(unused_variables)]
             unsafe fn into_js_function_unsafe(self, _context: &mut Context) -> NativeFunction {
                 let s = RefCell::new(self);
                 unsafe {
@@ -100,7 +100,7 @@ macro_rules! impl_into_js_function {
             R: TryIntoJsResult,
             T: FnMut($($t,)* &mut Context) -> R + 'static,
         {
-            #[allow(unused_variables)]
+            #[expect(unused_variables)]
             unsafe fn into_js_function_unsafe(self, _context: &mut Context) -> NativeFunction {
                 let s = RefCell::new(self);
                 unsafe {
@@ -145,7 +145,7 @@ macro_rules! impl_into_js_function {
             R: TryIntoJsResult,
             T: Fn($($t,)*) -> R + 'static + Copy,
         {
-            #[allow(unused_variables)]
+            #[expect(unused_variables)]
             fn into_js_function_copied(self, _context: &mut Context) -> NativeFunction {
                 let s = self;
                 NativeFunction::from_copy_closure(move |this, args, ctx| {
@@ -185,7 +185,7 @@ macro_rules! impl_into_js_function {
             R: TryIntoJsResult,
             T: Fn($($t,)* &mut Context) -> R + 'static + Copy,
         {
-            #[allow(unused_variables)]
+            #[expect(unused_variables)]
             fn into_js_function_copied(self, _context: &mut Context) -> NativeFunction {
                 let s = self;
                 NativeFunction::from_copy_closure(move |this, args, ctx| {

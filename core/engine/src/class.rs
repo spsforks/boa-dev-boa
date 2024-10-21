@@ -138,7 +138,7 @@ pub trait Class: NativeObject + Sized {
     ///
     /// Useful to initialize additional properties for the constructed object that aren't
     /// stored inside the native data.
-    #[allow(unused_variables)] // Saves work when IDEs autocomplete trait impls.
+    #[expect(unused_variables)] // Saves work when IDEs autocomplete trait impls.
     fn object_constructor(
         instance: &JsObject,
         args: &[JsValue],

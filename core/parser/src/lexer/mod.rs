@@ -312,7 +312,7 @@ impl<R> Lexer<R> {
                     let start = self.cursor.pos();
                     SingleLineComment.lex(&mut self.cursor, start, interner)
                 }
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 '=' | '*' | '+' | '-' | '%' | '|' | '&' | '^' | '<' | '>' | '!' | '~' | '?' => {
                     Operator::new(next_ch as u8).lex(&mut self.cursor, start, interner)
                 }
@@ -322,7 +322,7 @@ impl<R> Lexer<R> {
                 _ if Identifier::is_identifier_start(c as u32) => {
                     Identifier::new(c).lex(&mut self.cursor, start, interner)
                 }
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 _ if c.is_ascii_digit() => {
                     NumberLiteral::new(next_ch as u8).lex(&mut self.cursor, start, interner)
                 }
@@ -355,7 +355,6 @@ impl<R> Lexer<R> {
     ///
     /// Will return `Err` on invalid tokens and invalid reads of the bytes being lexed.
     // We intentionally don't implement Iterator trait as Result<Option> is cleaner to handle.
-    #[allow(clippy::should_implement_trait)]
     pub fn next(&mut self, interner: &mut Interner) -> Result<Option<Token>, Error>
     where
         R: ReadChar,

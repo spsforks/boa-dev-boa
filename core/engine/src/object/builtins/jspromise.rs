@@ -483,7 +483,7 @@ impl JsPromise {
     ///
     /// [`Promise.prototype.then`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
     #[inline]
-    #[allow(clippy::return_self_not_must_use)] // Could just be used to add handlers on an existing promise
+    #[expect(clippy::return_self_not_must_use)] // Could just be used to add handlers on an existing promise
     pub fn then(
         &self,
         on_fulfilled: Option<JsFunction>,
@@ -546,7 +546,7 @@ impl JsPromise {
     /// [`Promise.prototype.catch`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch
     /// [then]: JsPromise::then
     #[inline]
-    #[allow(clippy::return_self_not_must_use)] // Could just be used to add a handler on an existing promise
+    #[expect(clippy::return_self_not_must_use)] // Could just be used to add a handler on an existing promise
     pub fn catch(&self, on_rejected: JsFunction, context: &mut Context) -> Self {
         self.then(None, Some(on_rejected), context)
     }
@@ -618,7 +618,7 @@ impl JsPromise {
     /// [`Promise.prototype.finally()`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally
     /// [then]: JsPromise::then
     #[inline]
-    #[allow(clippy::return_self_not_must_use)] // Could just be used to add a handler on an existing promise
+    #[expect(clippy::return_self_not_must_use)] // Could just be used to add a handler on an existing promise
     pub fn finally(&self, on_finally: JsFunction, context: &mut Context) -> Self {
         let (then, catch) = Promise::then_catch_finally_closures(
             context.intrinsics().constructors().promise().constructor(),

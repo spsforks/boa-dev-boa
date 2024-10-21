@@ -30,7 +30,6 @@ pub mod flowgraph;
 pub(crate) use inline_cache::InlineCache;
 
 // TODO: see if this can be exposed on all features.
-#[allow(unused_imports)]
 pub(crate) use opcode::{Instruction, InstructionIterator, Opcode, VaryingOperandKind};
 pub use runtime_limits::RuntimeLimits;
 pub use {
@@ -277,7 +276,7 @@ pub(crate) enum CompletionType {
     Yield,
 }
 
-#[allow(clippy::print_stdout)]
+#[expect(clippy::print_stdout)]
 #[cfg(feature = "trace")]
 impl Context {
     const COLUMN_WIDTH: usize = 26;
@@ -554,7 +553,7 @@ impl Context {
 
     /// Runs the current frame to completion, yielding to the caller each time `budget`
     /// "clock cycles" have passed.
-    #[allow(clippy::future_not_send)]
+    #[expect(clippy::future_not_send)]
     pub(crate) async fn run_async_with_budget(&mut self, budget: u32) -> CompletionRecord {
         let _timer = Profiler::global().start_event("run_async_with_budget", "vm");
 

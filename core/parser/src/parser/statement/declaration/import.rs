@@ -260,7 +260,6 @@ enum ImportClause {
 
 impl ImportClause {
     #[inline]
-    #[allow(clippy::missing_const_for_fn)]
     fn with_specifier(self, specifier: ModuleSpecifier) -> AstImportDeclaration {
         match self {
             Self::Namespace(default, binding) => {

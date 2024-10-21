@@ -473,7 +473,6 @@ impl String {
     /// - [ECMAScript reference][spec]
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-string.prototype.tostring
-    #[allow(clippy::wrong_self_convention)]
     pub(crate) fn to_string(this: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         // 1. Return ? thisStringValue(this value).
         Ok(Self::this_string_value(this)?.into())
@@ -2757,7 +2756,7 @@ pub(crate) fn get_substitution(
                         }
 
                         // c. If none is found, the replacement text is the String "$<".
-                        #[allow(clippy::if_not_else)]
+                        #[expect(clippy::if_not_else)]
                         if !found {
                             result.extend_from_slice(utf16!("$<"));
                             result.extend_from_slice(&group_name);

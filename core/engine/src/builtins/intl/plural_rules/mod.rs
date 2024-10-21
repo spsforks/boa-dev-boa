@@ -429,7 +429,6 @@ impl PluralRules {
 }
 
 #[derive(Debug)]
-#[allow(unused)] // Will be used when we implement `selectRange`
 struct ResolvedPlural {
     category: PluralCategory,
     formatted: Option<FixedDecimal>,

@@ -163,7 +163,6 @@ impl BuiltInConstructor for DateTimeFormat {
 ///
 /// Since `required` and `defaults` differ only in the `any` and `all` variants,
 /// we combine both in a single variant `AnyAll`.
-#[allow(unused)]
 #[derive(Debug, PartialEq)]
 pub(crate) enum DateTimeReqs {
     Date,
@@ -178,7 +177,7 @@ pub(crate) enum DateTimeReqs {
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma402/#sec-todatetimeoptions
-#[allow(unused)]
+#[expect(unused)]
 pub(crate) fn to_date_time_options(
     options: &JsValue,
     required: &DateTimeReqs,

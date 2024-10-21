@@ -345,7 +345,7 @@ pub(crate) static ORDINARY_INTERNAL_METHODS: InternalObjectMethods = InternalObj
 ///
 /// For a guide on how to implement exotic internal methods, see `ORDINARY_INTERNAL_METHODS`.
 #[derive(Debug, Clone, Copy)]
-#[allow(clippy::type_complexity, clippy::struct_field_names)]
+#[expect(clippy::struct_field_names)]
 pub struct InternalObjectMethods {
     pub(crate) __get_prototype_of__: fn(&JsObject, &mut Context) -> JsResult<JsPrototype>,
     pub(crate) __set_prototype_of__: fn(&JsObject, JsPrototype, &mut Context) -> JsResult<bool>,
@@ -431,7 +431,7 @@ impl CallValue {
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinarygetprototypeof
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_get_prototype_of(
     obj: &JsObject,
     _context: &mut Context,
@@ -448,7 +448,7 @@ pub(crate) fn ordinary_get_prototype_of(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinarysetprototypeof
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_set_prototype_of(
     obj: &JsObject,
     val: JsPrototype,
@@ -504,7 +504,7 @@ pub(crate) fn ordinary_set_prototype_of(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinaryisextensible
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_is_extensible(obj: &JsObject, _context: &mut Context) -> JsResult<bool> {
     // 1. Return O.[[Extensible]].
     Ok(obj.borrow().extensible)
@@ -516,7 +516,7 @@ pub(crate) fn ordinary_is_extensible(obj: &JsObject, _context: &mut Context) -> 
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinarypreventextensions
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_prevent_extensions(
     obj: &JsObject,
     _context: &mut Context,
@@ -534,7 +534,7 @@ pub(crate) fn ordinary_prevent_extensions(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinarygetownproperty
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_get_own_property(
     obj: &JsObject,
     key: &PropertyKey,
@@ -878,7 +878,7 @@ pub(crate) fn ordinary_delete(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-ordinaryownpropertykeys
-#[allow(clippy::unnecessary_wraps)]
+#[expect(clippy::unnecessary_wraps)]
 pub(crate) fn ordinary_own_property_keys(
     obj: &JsObject,
     _context: &mut Context,

@@ -65,7 +65,7 @@ pub type FutureJob = Pin<Box<dyn Future<Output = NativeJob> + 'static>>;
 /// [Job]: https://tc39.es/ecma262/#sec-jobs
 /// [`NativeFunction`]: crate::native_function::NativeFunction
 pub struct NativeJob {
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     f: Box<dyn FnOnce(&mut Context) -> JsResult<JsValue>>,
     realm: Option<Realm>,
 }

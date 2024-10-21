@@ -11,8 +11,7 @@ use crate::{
 pub(crate) struct PopIntoLocal;
 
 impl PopIntoLocal {
-    #[allow(clippy::unnecessary_wraps)]
-    #[allow(clippy::needless_pass_by_value)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(dst: u32, context: &mut Context) -> JsResult<CompletionType> {
         context.vm.frame_mut().local_binings_initialized[dst as usize] = true;
         let value = context.vm.pop();
@@ -52,8 +51,6 @@ impl Operation for PopIntoLocal {
 pub(crate) struct PushFromLocal;
 
 impl PushFromLocal {
-    #[allow(clippy::unnecessary_wraps)]
-    #[allow(clippy::needless_pass_by_value)]
     fn operation(dst: u32, context: &mut Context) -> JsResult<CompletionType> {
         if !context.vm.frame().local_binings_initialized[dst as usize] {
             return Err(JsNativeError::reference()

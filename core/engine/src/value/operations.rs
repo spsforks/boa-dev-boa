@@ -196,7 +196,7 @@ impl JsValue {
 
     /// Perform the binary `**` operator on the value and return the result.
     // NOTE: There are some cases in the spec where we have to compare floats
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     pub fn pow(&self, other: &Self, context: &mut Context) -> JsResult<Self> {
         Ok(match (self, other) {
             // Fast path:

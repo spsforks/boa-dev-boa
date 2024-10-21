@@ -121,7 +121,7 @@ impl<R: ReadChar> Cursor<R> {
         Ok(match self.peek_char()? {
             Some(byte) if (0..=0x7F).contains(&byte) =>
             {
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 pred(char::from(byte as u8))
             }
             Some(_) | None => false,
@@ -163,7 +163,7 @@ impl<R: ReadChar> Cursor<R> {
             if !self.next_is_ascii_pred(pred)? {
                 return Ok(());
             } else if let Some(byte) = self.next_char()? {
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 buf.push(byte as u8);
             } else {
                 // next_is_pred will return false if the next value is None so the None case should already be handled.

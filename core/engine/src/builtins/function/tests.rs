@@ -9,7 +9,7 @@ use crate::{
 use boa_macros::js_str;
 use indoc::indoc;
 
-#[allow(clippy::float_cmp)]
+#[expect(clippy::float_cmp)]
 #[test]
 fn arguments_object() {
     run_test_actions([

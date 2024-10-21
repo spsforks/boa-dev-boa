@@ -15,7 +15,7 @@ use crate::{
 pub(crate) struct PushClassPrivateMethod;
 
 impl PushClassPrivateMethod {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let method = context.vm.pop();
@@ -87,7 +87,7 @@ impl Operation for PushClassPrivateMethod {
 pub(crate) struct PushClassPrivateGetter;
 
 impl PushClassPrivateGetter {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let getter = context.vm.pop();
@@ -139,7 +139,7 @@ impl Operation for PushClassPrivateGetter {
 pub(crate) struct PushClassPrivateSetter;
 
 impl PushClassPrivateSetter {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(context: &mut Context, index: usize) -> JsResult<CompletionType> {
         let name = context.vm.frame().code_block().constant_string(index);
         let setter = context.vm.pop();

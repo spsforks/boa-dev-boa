@@ -9,7 +9,7 @@ use temporal_rs::components::calendar::Calendar;
 // -- `Calendar` Abstract Operations --
 
 /// 12.2.21 `GetTemporalCalendarSlotValueWithISODefault ( item )`
-#[allow(unused)]
+#[expect(unused)]
 pub(crate) fn get_temporal_calendar_slot_value_with_default(
     item: &JsObject,
     context: &mut Context,

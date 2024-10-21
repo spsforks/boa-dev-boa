@@ -356,7 +356,7 @@ impl Access<'_> {
 
 /// An opcode operand.
 #[derive(Debug, Clone, Copy)]
-#[allow(unused)]
+#[expect(unused)]
 pub(crate) enum Operand {
     Bool(bool),
     I8(i8),
@@ -372,7 +372,6 @@ pub(crate) enum Operand {
 
 /// The [`ByteCompiler`] is used to compile ECMAScript AST from [`boa_ast`] to bytecode.
 #[derive(Debug)]
-#[allow(clippy::struct_excessive_bools)]
 pub struct ByteCompiler<'ctx> {
     /// Name of this function.
     pub(crate) function_name: JsString,
@@ -444,8 +443,8 @@ impl<'ctx> ByteCompiler<'ctx> {
 
     /// Creates a new [`ByteCompiler`].
     #[inline]
-    #[allow(clippy::too_many_arguments)]
-    #[allow(clippy::fn_params_excessive_bools)]
+    #[expect(clippy::too_many_arguments)]
+    #[expect(clippy::fn_params_excessive_bools)]
     pub(crate) fn new(
         name: JsString,
         strict: bool,
@@ -685,12 +684,12 @@ impl<'ctx> ByteCompiler<'ctx> {
     }
 
     /// TODO: Temporary function, remove once transition is complete.
-    #[allow(unused)]
+    #[expect(unused)]
     fn pop_into_register(&mut self, dst: &Register) {
         self.emit(Opcode::PopIntoRegister, &[Operand::Varying(dst.index())]);
     }
     /// TODO: Temporary function, remove once transition is complete.
-    #[allow(unused)]
+    #[expect(unused)]
     fn push_from_register(&mut self, src: &Register) {
         self.emit(Opcode::PushFromRegister, &[Operand::Varying(src.index())]);
     }
@@ -860,7 +859,7 @@ impl<'ctx> ByteCompiler<'ctx> {
         } else {
             let f32_value = value as f32;
 
-            #[allow(clippy::float_cmp)]
+            #[expect(clippy::float_cmp)]
             if f64::from(f32_value) == value {
                 self.emit(Opcode::PushFloat, &[Operand::U32(f32_value.to_bits())]);
             } else {
@@ -1448,7 +1447,6 @@ impl<'ctx> ByteCompiler<'ctx> {
     }
 
     /// Compile a [`Declaration`].
-    #[allow(unused_variables)]
     pub fn compile_decl(&mut self, decl: &Declaration, block: bool) {
         match decl {
             #[cfg(feature = "annex-b")]
@@ -1746,7 +1744,6 @@ impl<'ctx> ByteCompiler<'ctx> {
     /// Finish compiling code with the [`ByteCompiler`] and return the generated [`CodeBlock`].
     #[inline]
     #[must_use]
-    #[allow(clippy::missing_const_for_fn)]
     pub fn finish(mut self) -> CodeBlock {
         // Push return at the end of the function compilation.
         if let Some(async_handler) = self.async_handler {

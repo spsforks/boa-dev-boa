@@ -141,7 +141,6 @@ pub(crate) trait BuiltInObject: IntrinsicObject {
     /// assign `"Cplx"` to this constant, making any property inside it accessible from ECMAScript
     /// as `Cplx.prop`
     // `JsString` can only be const-constructed for static strings.
-    #[allow(clippy::declare_interior_mutable_const)]
     const NAME: JsString;
 
     /// Property attribute flags of the built-in. Check [`Attribute`] for more information.

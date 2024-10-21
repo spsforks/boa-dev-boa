@@ -27,7 +27,7 @@ impl UnmappedArguments {
     ///  - [ECMAScript reference][spec]
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-createunmappedargumentsobject
-    #[allow(clippy::new_ret_no_self)]
+    #[expect(clippy::new_ret_no_self)]
     pub(crate) fn new(arguments_list: &[JsValue], context: &mut Context) -> JsObject {
         // 1. Let len be the number of elements in argumentsList.
         let len = arguments_list.len();
@@ -202,7 +202,7 @@ impl MappedArguments {
     /// Creates a new mapped Arguments exotic object.
     ///
     /// <https://tc39.es/ecma262/#sec-createmappedargumentsobject>
-    #[allow(clippy::new_ret_no_self)]
+    #[expect(clippy::new_ret_no_self)]
     pub(crate) fn new(
         func: &JsObject,
         binding_indices: &[Option<u32>],
@@ -313,7 +313,7 @@ pub(crate) fn arguments_exotic_get_own_property(
 ///  - [ECMAScript reference][spec]
 ///
 /// [spec]: https://tc39.es/ecma262/#sec-arguments-exotic-objects-defineownproperty-p-desc
-#[allow(clippy::needless_pass_by_value)]
+#[expect(clippy::needless_pass_by_value)]
 pub(crate) fn arguments_exotic_define_own_property(
     obj: &JsObject,
     key: &PropertyKey,

@@ -166,7 +166,7 @@ impl BigInt {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-bigint.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/toString
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_string(
         this: &JsValue,
         args: &[JsValue],
@@ -229,7 +229,7 @@ impl BigInt {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-bigint.asintn
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/asIntN
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn as_int_n(
         _: &JsValue,
         args: &[JsValue],
@@ -255,7 +255,7 @@ impl BigInt {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-bigint.asuintn
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/asUintN
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn as_uint_n(
         _: &JsValue,
         args: &[JsValue],

@@ -355,11 +355,13 @@ impl CallFrame {
 /// Indicates how a generator function that has been called/resumed should return.
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Default)]
 #[repr(u8)]
-#[allow(missing_docs)]
 pub enum GeneratorResumeKind {
     #[default]
+    /// Usual execution.
     Normal = 0,
+    /// Finished by throwing an error.
     Throw,
+    /// Finished by returning.
     Return,
 }
 

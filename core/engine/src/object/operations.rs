@@ -842,7 +842,7 @@ impl JsObject {
     ///  - [ECMAScript specification][spec]
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-privateelementfind
-    #[allow(clippy::similar_names)]
+    #[expect(clippy::similar_names)]
     pub(crate) fn private_element_find(
         &self,
         name: &PrivateName,

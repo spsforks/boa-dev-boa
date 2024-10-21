@@ -17,7 +17,7 @@ use super::{Constant, Instruction, InstructionIterator};
 
 impl CodeBlock {
     /// Output the [`CodeBlock`] VM instructions into a [`Graph`].
-    #[allow(clippy::match_same_arms)]
+    #[expect(clippy::match_same_arms)]
     pub fn to_graph(&self, graph: &mut SubGraph) {
         // Have to remove any invalid graph chars like `<` or `>`.
         let name = if self.name() == &js_str!("<main>") {

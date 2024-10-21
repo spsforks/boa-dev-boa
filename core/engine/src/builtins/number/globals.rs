@@ -191,7 +191,6 @@ pub(crate) fn parse_int(_: &JsValue, args: &[JsValue], context: &mut Context) ->
     let mut strip_prefix = true;
 
     // 8. If R ≠ 0, then
-    #[allow(clippy::if_not_else)]
     let mut r = if r != 0 {
         //     a. If R < 2 or R > 36, return NaN.
         if !(2..=36).contains(&r) {

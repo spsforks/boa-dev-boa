@@ -120,8 +120,7 @@ impl Operation for SetReturnValue {
 pub(crate) struct PopIntoRegister;
 
 impl PopIntoRegister {
-    #[allow(clippy::unnecessary_wraps)]
-    #[allow(clippy::needless_pass_by_value)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(dst: u32, context: &mut Context) -> JsResult<CompletionType> {
         let value = context.vm.pop();
 
@@ -157,8 +156,7 @@ impl Operation for PopIntoRegister {
 pub(crate) struct PushFromRegister;
 
 impl PushFromRegister {
-    #[allow(clippy::unnecessary_wraps)]
-    #[allow(clippy::needless_pass_by_value)]
+    #[expect(clippy::unnecessary_wraps)]
     fn operation(dst: u32, context: &mut Context) -> JsResult<CompletionType> {
         let rp = context.vm.frame().rp;
         let value = context.vm.stack[(rp + dst) as usize].clone();

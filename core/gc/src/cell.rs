@@ -263,7 +263,7 @@ impl<'a, T: ?Sized> GcRef<'a, T> {
     /// `GcCellRef::clone(...)`. A `Clone` implementation or a method
     /// would interfere with the use of `c.borrow().clone()` to clone
     /// the contents of a `GcCell`.
-    #[allow(clippy::should_implement_trait)]
+    #[expect(clippy::should_implement_trait)]
     #[must_use]
     pub fn clone(orig: &GcRef<'a, T>) -> GcRef<'a, T> {
         orig.flags.set(orig.flags.get().add_reading());
@@ -404,7 +404,6 @@ impl<'a, T: ?Sized, U: ?Sized> GcRefMut<'a, T, U> {
         V: ?Sized,
         F: FnOnce(&mut U) -> Option<&mut V>,
     {
-        #[allow(trivial_casts)]
         // SAFETY: This is safe as `GcCellRefMut` is already borrowed, so the value is rooted.
         let value = unsafe { &mut *ptr::from_mut::<U>(orig.value) };
 
@@ -433,7 +432,6 @@ impl<'a, T: ?Sized, U: ?Sized> GcRefMut<'a, T, U> {
         V: ?Sized,
         F: FnOnce(&mut U) -> &mut V,
     {
-        #[allow(trivial_casts)]
         // SAFETY: This is safe as `GcCellRefMut` is already borrowed, so the value is rooted.
         let value = unsafe { &mut *ptr::from_mut::<U>(orig.value) };
 
@@ -498,7 +496,7 @@ impl<T: Trace + Default> Default for GcRefCell<T> {
     }
 }
 
-#[allow(clippy::inline_always)]
+#[expect(clippy::inline_always)]
 impl<T: Trace + ?Sized + PartialEq> PartialEq for GcRefCell<T> {
     #[inline(always)]
     fn eq(&self, other: &Self) -> bool {
@@ -508,7 +506,7 @@ impl<T: Trace + ?Sized + PartialEq> PartialEq for GcRefCell<T> {
 
 impl<T: Trace + ?Sized + Eq> Eq for GcRefCell<T> {}
 
-#[allow(clippy::inline_always)]
+#[expect(clippy::inline_always)]
 impl<T: Trace + ?Sized + PartialOrd> PartialOrd for GcRefCell<T> {
     #[inline(always)]
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {

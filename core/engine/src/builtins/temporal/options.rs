@@ -63,7 +63,7 @@ pub(crate) fn get_difference_settings(
 }
 
 #[derive(Debug, Clone, Copy)]
-#[allow(unused)]
+#[expect(unused)]
 pub(crate) enum TemporalUnitGroup {
     Date, // Need to assert if this is neede anymore with the removal of `Temporal.Calendar`
     Time,

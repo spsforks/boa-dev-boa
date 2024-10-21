@@ -119,7 +119,7 @@ where
     ///
     /// The map will be able to hold at least `capacity` elements without reallocating.
     /// If `capacity` is 0, the map will not allocate.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn with_capacity(capacity: usize) -> Self {
         Self::with_capacity_and_hasher(capacity, DefaultHashBuilder::default())
     }
@@ -155,7 +155,7 @@ where
     }
 
     /// Returns a reference to the map's [`BuildHasher`].
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) const fn hasher(&self) -> &S {
         &self.hash_builder
     }
@@ -164,7 +164,7 @@ where
     ///
     /// This number is a lower bound; the map might be able to hold more, but is guaranteed to be
     /// able to hold at least this many.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn capacity(&self) -> usize {
         self.table.capacity()
     }
@@ -185,7 +185,6 @@ where
     ///
     /// This is an upper bound; the map might contain some expired keys which haven't been
     /// removed.
-    #[allow(unused)]
     pub(crate) fn len(&self) -> usize {
         self.table.len()
     }
@@ -194,7 +193,7 @@ where
     ///
     /// This might return `false` if the map has expired keys that are still pending to be
     /// cleaned up.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn is_empty(&self) -> bool {
         self.len() == 0
     }
@@ -224,7 +223,7 @@ where
 
     /// Clears the map, removing all key-value pairs. Keeps the allocated memory
     /// for reuse.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn clear(&mut self) {
         self.table.clear();
     }
@@ -245,7 +244,7 @@ where
     /// Panics if the new capacity exceeds [`isize::MAX`] bytes and [`abort`](std::process::abort)
     /// the program in case of allocation error. Use [`try_reserve`](RawWeakMap::try_reserve) instead
     /// if you want to handle memory allocation failure.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn reserve(&mut self, additional: usize) {
         self.table
             .reserve(additional, make_hasher(&self.hash_builder));
@@ -259,7 +258,7 @@ where
     ///
     /// If the capacity overflows, or the allocator reports a failure, then an error
     /// is returned.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.table
             .try_reserve(additional, make_hasher(&self.hash_builder))
@@ -268,7 +267,7 @@ where
     /// Shrinks the capacity of the map as much as possible. It will drop
     /// down as much as possible while maintaining the internal rules
     /// and possibly leaving some space in accordance with the resize policy.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn shrink_to_fit(&mut self) {
         self.table
             .shrink_to(0, make_hasher::<_, V, S>(&self.hash_builder));
@@ -280,7 +279,7 @@ where
     ///
     /// This function does nothing if the current capacity is smaller than the
     /// supplied minimum capacity.
-    #[allow(unused)]
+    #[expect(unused)]
     pub(crate) fn shrink_to(&mut self, min_capacity: usize) {
         self.table
             .shrink_to(min_capacity, make_hasher::<_, V, S>(&self.hash_builder));

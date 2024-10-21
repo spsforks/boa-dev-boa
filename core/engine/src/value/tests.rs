@@ -98,7 +98,7 @@ fn hash_value(value: &JsValue) -> u64 {
     hasher.finish()
 }
 
-#[allow(clippy::redundant_clone)]
+#[expect(clippy::redundant_clone)]
 #[test]
 fn hash_undefined() {
     let value1 = JsValue::undefined();
@@ -312,7 +312,7 @@ fn bitand_rational_and_rational() {
 }
 
 #[test]
-#[allow(clippy::float_cmp)]
+#[expect(clippy::float_cmp)]
 fn pow_number_and_number() {
     run_test_actions([TestAction::assert_eq("3 ** 3", 27.0)]);
 }

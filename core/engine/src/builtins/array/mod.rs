@@ -231,7 +231,7 @@ impl BuiltInConstructor for Array {
             let array = Self::array_create(0, Some(prototype), context)
                 .expect("this ArrayCreate call must not fail");
             // c. If Type(len) is not Number, then
-            #[allow(clippy::if_not_else)]
+            #[expect(clippy::if_not_else)]
             let int_len = if !len.is_number() {
                 // i. Perform ! CreateDataPropertyOrThrow(array, "0", len).
                 array
@@ -441,7 +441,7 @@ impl Array {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-get-array-@@species
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/@@species
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     fn get_species(this: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         // 1. Return the this value.
         Ok(this.clone())
@@ -1032,7 +1032,7 @@ impl Array {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-array.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString
-    #[allow(clippy::wrong_self_convention)]
+
     pub(crate) fn to_string(
         this: &JsValue,
         _: &[JsValue],
@@ -1062,7 +1062,6 @@ impl Array {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-array.prototype.reverse
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
-    #[allow(clippy::else_if_without_else)]
     pub(crate) fn reverse(
         this: &JsValue,
         _: &[JsValue],
@@ -1844,7 +1843,7 @@ impl Array {
     ///  - [ECMAScript reference][spec]
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-flattenintoarray
-    #[allow(clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     fn flatten_into_array(
         target: &JsObject,
         source: &JsObject,
@@ -3504,7 +3503,7 @@ fn array_set_length(
     let number_len = new_len_val.to_number(context)?;
 
     // 5. If SameValueZero(newLen, numberLen) is false, throw a RangeError exception.
-    #[allow(clippy::float_cmp)]
+    #[expect(clippy::float_cmp)]
     if f64::from(new_len) != number_len {
         return Err(JsNativeError::range()
             .with_message("bad length for array")

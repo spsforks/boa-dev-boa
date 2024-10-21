@@ -765,7 +765,7 @@ impl JsTypedArray {
         .as_number()
         .expect("TypedArray.prototype.indexOf should always return number");
 
-        #[allow(clippy::float_cmp)]
+        #[expect(clippy::float_cmp)]
         if index == -1.0 {
             Ok(None)
         } else {
@@ -791,7 +791,7 @@ impl JsTypedArray {
         .as_number()
         .expect("TypedArray.prototype.lastIndexOf should always return number");
 
-        #[allow(clippy::float_cmp)]
+        #[expect(clippy::float_cmp)]
         if index == -1.0 {
             Ok(None)
         } else {

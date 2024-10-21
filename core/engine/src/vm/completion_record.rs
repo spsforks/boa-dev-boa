@@ -39,7 +39,6 @@ impl CompletionRecord {
     //   - https://github.com/rust-lang/rust-clippy/issues/4041
     //   - https://github.com/rust-lang/rust/issues/60964
     //   - https://github.com/rust-lang/rust/issues/73255
-    #[allow(clippy::missing_const_for_fn)]
     pub(crate) fn consume(self) -> JsResult<JsValue> {
         match self {
             Self::Throw(error) => Err(error),

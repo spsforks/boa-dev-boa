@@ -212,7 +212,7 @@ impl<T: Trace + Default> Default for Gc<T> {
     }
 }
 
-#[allow(clippy::inline_always)]
+#[expect(clippy::inline_always)]
 impl<T: Trace + ?Sized + PartialEq> PartialEq for Gc<T> {
     #[inline(always)]
     fn eq(&self, other: &Self) -> bool {
@@ -222,7 +222,7 @@ impl<T: Trace + ?Sized + PartialEq> PartialEq for Gc<T> {
 
 impl<T: Trace + ?Sized + Eq> Eq for Gc<T> {}
 
-#[allow(clippy::inline_always)]
+#[expect(clippy::inline_always)]
 impl<T: Trace + ?Sized + PartialOrd> PartialOrd for Gc<T> {
     #[inline(always)]
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {

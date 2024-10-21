@@ -217,7 +217,7 @@ decl_derive! {
 }
 
 /// Derives the `Trace` trait.
-#[allow(clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 fn derive_trace(mut s: Structure<'_>) -> proc_macro2::TokenStream {
     struct EmptyTrace {
         copy: bool,
@@ -282,8 +282,21 @@ fn derive_trace(mut s: Structure<'_>) -> proc_macro2::TokenStream {
             .iter()
             .any(|attr| attr.path().is_ident("unsafe_ignore_trace"))
     });
-    let trace_body = s.each(|bi| quote!(::boa_gc::Trace::trace(#bi, tracer)));
-    let trace_other_body = s.each(|bi| quote!(mark(#bi)));
+    let trace_body = s.each(|bi| {
+        quote! {
+            unsafe {
+                ::boa_gc::Trace::trace(#bi, tracer);
+            }
+        }
+    });
+    let trace_non_roots_body = s.each(|bi| {
+        quote! {
+            unsafe {
+                ::boa_gc::Trace::trace_non_roots(#bi);
+            }
+        }
+    });
+    let run_finalizer_body = s.each(|bi| quote!(::boa_gc::Trace::run_finalizer(#bi)));
 
     s.add_bounds(AddBounds::Fields);
     let trace_impl = s.unsafe_bound_impl(
@@ -291,36 +304,16 @@ fn derive_trace(mut s: Structure<'_>) -> proc_macro2::TokenStream {
         quote! {
             #[inline]
             unsafe fn trace(&self, tracer: &mut ::boa_gc::Tracer) {
-                #[allow(dead_code)]
-                let mut mark = |it: &dyn ::boa_gc::Trace| {
-                    // SAFETY: The implementor must ensure that `trace` is correctly implemented.
-                    unsafe {
-                        ::boa_gc::Trace::trace(it, tracer);
-                    }
-                };
                 match *self { #trace_body }
             }
             #[inline]
             unsafe fn trace_non_roots(&self) {
-                #[allow(dead_code)]
-                fn mark<T: ::boa_gc::Trace + ?Sized>(it: &T) {
-                    // SAFETY: The implementor must ensure that `trace_non_roots` is correctly implemented.
-                    unsafe {
-                        ::boa_gc::Trace::trace_non_roots(it);
-                    }
-                }
-                match *self { #trace_other_body }
+                match *self { #trace_non_roots_body }
             }
             #[inline]
             fn run_finalizer(&self) {
                 ::boa_gc::Finalize::finalize(self);
-                #[allow(dead_code)]
-                fn mark<T: ::boa_gc::Trace + ?Sized>(it: &T) {
-                    unsafe {
-                        ::boa_gc::Trace::run_finalizer(it);
-                    }
-                }
-                match *self { #trace_other_body }
+                match *self { #run_finalizer_body }
             }
         },
     );
@@ -332,7 +325,7 @@ fn derive_trace(mut s: Structure<'_>) -> proc_macro2::TokenStream {
         s.unbound_impl(
             quote!(::core::ops::Drop),
             quote! {
-                #[allow(clippy::inline_always)]
+                #[expect(clippy::inline_always)]
                 #[inline(always)]
                 fn drop(&mut self) {
                     if ::boa_gc::finalizer_safe() {
@@ -358,7 +351,7 @@ decl_derive! {
 }
 
 /// Derives the `Finalize` trait.
-#[allow(clippy::needless_pass_by_value)]
+#[expect(clippy::needless_pass_by_value)]
 fn derive_finalize(s: Structure<'_>) -> proc_macro2::TokenStream {
     s.unbound_impl(quote!(::boa_gc::Finalize), quote!())
 }
@@ -370,7 +363,7 @@ decl_derive! {
 }
 
 /// Derives the `JsData` trait.
-#[allow(clippy::needless_pass_by_value)]
+#[expect(clippy::needless_pass_by_value)]
 fn derive_js_data(s: Structure<'_>) -> proc_macro2::TokenStream {
     s.unbound_impl(quote!(::boa_engine::JsData), quote!())
 }
@@ -393,7 +386,10 @@ pub fn derive_try_from_js(input: TokenStream) -> TokenStream {
         panic!("you can only derive TryFromJs for named-field structs")
     };
 
-    let conv = generate_conversion(fields).unwrap_or_else(to_compile_errors);
+    let conv = generate_conversion(fields).unwrap_or_else(|e| {
+        let compile_errors = e.iter().map(syn::Error::to_compile_error);
+        quote!(#(#compile_errors)*)
+    });
 
     let type_name = input.ident;
 
@@ -489,11 +485,4 @@ fn generate_conversion(fields: FieldsNamed) -> Result<proc_macro2::TokenStream, 
             #(#field_list),*
         })
     })
-}
-
-/// Generates a list of compile errors.
-#[allow(clippy::needless_pass_by_value)]
-fn to_compile_errors(errors: Vec<syn::Error>) -> proc_macro2::TokenStream {
-    let compile_errors = errors.iter().map(syn::Error::to_compile_error);
-    quote!(#(#compile_errors)*)
 }

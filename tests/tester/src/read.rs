@@ -22,7 +22,7 @@ use super::{Harness, Locale, Phase, Test, TestSuite};
 pub(super) struct MetaData {
     pub(super) description: Box<str>,
     pub(super) esid: Option<Box<str>>,
-    #[allow(dead_code)]
+    #[expect(dead_code)]
     pub(super) es5id: Option<Box<str>>,
     pub(super) es6id: Option<Box<str>>,
     #[serde(default)]
@@ -49,7 +49,7 @@ pub(super) struct Negative {
 
 /// All possible error types
 #[derive(Debug, Copy, Clone, Deserialize, PartialEq, Eq)]
-#[allow(clippy::enum_variant_names)] // Better than appending `rename` to all variants
+#[expect(clippy::enum_variant_names)] // Better than appending `rename` to all variants
 pub(super) enum ErrorType {
     Test262Error,
     SyntaxError,

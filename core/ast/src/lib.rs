@@ -115,7 +115,7 @@ pub(crate) trait ToJsString {
 }
 
 impl ToJsString for Sym {
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     fn to_js_string(&self, interner: &Interner) -> JsString {
         // TODO: Identify latin1 encodeable strings during parsing to avoid this check.
         let string = interner.resolve_expect(*self).utf16();

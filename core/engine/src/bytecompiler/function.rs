@@ -14,7 +14,7 @@ use boa_interner::Interner;
 
 /// `FunctionCompiler` is used to compile AST functions to bytecode.
 #[derive(Debug, Clone)]
-#[allow(clippy::struct_excessive_bools)]
+#[expect(clippy::struct_excessive_bools)]
 pub(crate) struct FunctionCompiler {
     name: JsString,
     generator: bool,

@@ -256,7 +256,6 @@ impl Symbol {
     ///
     /// [spec]: https://tc39.es/ecma262/#sec-symbol.prototype.tostring
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toString
-    #[allow(clippy::wrong_self_convention)]
     pub(crate) fn to_string(this: &JsValue, _: &[JsValue], _: &mut Context) -> JsResult<JsValue> {
         // 1. Let sym be ? thisSymbolValue(this value).
         let symbol = Self::this_symbol_value(this)?;
