@@ -588,8 +588,8 @@ impl ByteCompiler<'_> {
     pub(crate) fn eval_declaration_instantiation(
         &mut self,
         body: &Script,
-        strict: bool,
-        var_env: &Scope,
+        #[allow(unused_variables)] strict: bool,
+        #[allow(unused_variables)] var_env: &Scope,
         bindings: EvalDeclarationBindings,
     ) {
         // 2. Let varDeclarations be the VarScopedDeclarations of body.
@@ -1029,6 +1029,7 @@ impl ByteCompiler<'_> {
 
         // 27. If hasParameterExpressions is false, then
         // 28. Else,
+        #[allow(unused_variables)]
         let (instantiated_var_names, variable_scope) =
             if let Some(scope) = scopes.parameters_scope() {
                 // a. NOTE: A separate Environment Record is needed to ensure that closures created by

@@ -1447,7 +1447,7 @@ impl<'ctx> ByteCompiler<'ctx> {
     }
 
     /// Compile a [`Declaration`].
-    pub fn compile_decl(&mut self, decl: &Declaration, block: bool) {
+    pub fn compile_decl(&mut self, decl: &Declaration, #[allow(unused_variables)] block: bool) {
         match decl {
             #[cfg(feature = "annex-b")]
             Declaration::FunctionDeclaration(function) if block => {

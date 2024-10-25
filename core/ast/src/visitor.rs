@@ -89,7 +89,7 @@ macro_rules! node_ref {
     ) => {
         /// A reference to a node visitable by a [`Visitor`].
         #[derive(Debug, Clone, Copy)]
-        #[expect(missing_docs)]
+        #[allow(missing_docs)]
         pub enum NodeRef<'a> {
             $(
                 $Variant(&'a $Variant)
@@ -106,7 +106,7 @@ macro_rules! node_ref {
 
         /// A mutable reference to a node visitable by a [`VisitorMut`].
         #[derive(Debug)]
-        #[expect(missing_docs)]
+        #[allow(missing_docs)]
         pub enum NodeRefMut<'a> {
             $(
                 $Variant(&'a mut $Variant)

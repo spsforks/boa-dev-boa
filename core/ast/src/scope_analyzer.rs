@@ -1469,7 +1469,7 @@ fn function_declaration_instantiation(
 
     // 27. If hasParameterExpressions is false, then
     // 28. Else,
-    #[expect(unused_mut)]
+    #[allow(unused_mut, unused_variables)]
     let (mut instantiated_var_names, mut var_env) = if has_parameter_expressions {
         // a. NOTE: A separate Environment Record is needed to ensure that closures created by
         //          expressions in the formal parameter list do not have
@@ -1718,7 +1718,7 @@ pub(crate) fn eval_declaration_instantiation_scope(
     strict: bool,
     var_env: &Scope,
     lex_env: &Scope,
-    annex_b_function_names: &[Identifier],
+    #[allow(unused_variables)] annex_b_function_names: &[Identifier],
     interner: &Interner,
 ) -> Result<EvalDeclarationBindings, String> {
     let mut result = EvalDeclarationBindings::default();
