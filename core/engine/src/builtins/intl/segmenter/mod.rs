@@ -3,7 +3,7 @@ use std::ops::Range;
 use boa_gc::{Finalize, Trace};
 use boa_profiler::Profiler;
 use icu_collator::provider::CollationDiacriticsV1Marker;
-use icu_locid::Locale;
+use icu_locale::Locale;
 use icu_segmenter::{GraphemeClusterSegmenter, SentenceSegmenter, WordSegmenter};
 
 use crate::{
